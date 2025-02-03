@@ -7,7 +7,24 @@
 }
 
 .card{
+    display: flex;
+    flex-direction: column;
     width: 200px;
     height: 300px;
     background: #535bf2;
+    border-radius: 12px;
+}
+
+.header{
+    flex: 1;
+    background: #213547;
+}
+.header2{
+    flex: 10;
+    background: cadetblue;
+}
+
+p{
+    margin: 0;
+    padding: 0;
 }

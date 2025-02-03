@@ -4,7 +4,8 @@ import PokemonCard from "./components/pokemonCard/PokemonCard.jsx"
 function App() {
     return (
         <>
-            <div>
+            <div className={"cardContainer"}>
+                <PokemonCard/>
                 <PokemonCard/>
             </div>
         </>
