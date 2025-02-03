@@ -9,19 +9,19 @@
 .card{
     display: flex;
     flex-direction: column;
-    width: 200px;
-    height: 300px;
-    background: #535bf2;
+    width: 315px;
+    height: 440px;
+    background-color: #fff;
+    border: 10px solid #646cff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
 }
 
 .header{
     flex: 1;
-    background: #213547;
 }
 .header2{
     flex: 10;
-    background: cadetblue;
 }
 
 p{

@@ -6,7 +6,6 @@ function App() {
         <>
             <div className={"cardContainer"}>
                 <PokemonCard/>
-                <PokemonCard/>
             </div>
         </>
     )
