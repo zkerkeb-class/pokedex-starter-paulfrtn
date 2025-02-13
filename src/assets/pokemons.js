@@ -3090,7 +3090,9 @@ const pokemonsList = [{
   }
 ]
 
-export default pokemonsList.map((pokemon) => ({
+const pokemonsWithImages = pokemonsList.map((pokemon) => ({
   ...pokemon,
   image: pokemonImages[pokemon.id]
 }));
+
+export default pokemonsWithImages;
