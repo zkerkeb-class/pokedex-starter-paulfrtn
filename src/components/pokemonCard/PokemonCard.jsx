@@ -15,9 +15,6 @@ const PokemonCard = ({pokemon}) => {
     }
 
     const {name, type, base, image} = pokemon;
-    {type.map((t) => (
-        console.log(`../../assets/types/${t}.png`)
-    ))}
     return (
         // <div className={styles.container}>
             <div className={styles.card}>
@@ -28,18 +25,18 @@ const PokemonCard = ({pokemon}) => {
                     <div className={styles.leftHeader}>
                         <p className={styles.PV}>PV</p>
                         <p>{base.HP}</p>
-                        <div className={styles.types}>
-                            {type.map((t, index) => (
-                                <img
-                                    key={index}
-                                    alt={t}
-                                    src={`src/assets/types/${t}.png`}
-                                />
-                                ))}
-                        </div>
                     </div>
                 </div>
                 <div className={styles.content}>
+                    <div className={styles.types}>
+                        {type.map((t, index) => (
+                            <img
+                                key={index}
+                                alt={t}
+                                src={`src/assets/types/${t}.png`}
+                            />
+                        ))}
+                    </div>
                     <div className={styles.pokemonImg}>
                         <img alt={name.french} width="150px" src={image}/>
                     </div>

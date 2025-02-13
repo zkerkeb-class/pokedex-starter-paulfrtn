@@ -1,14 +1,15 @@
 import './App.css';
-import PokemonCard from "./components/pokemonCard/PokemonCard.jsx";
 import pokemonsWithImages from "./assets/pokemons";
+import PokemonGrid from "./components/pokemonGrid/PokemonGrid.jsx";
 
 function App() {
     return (
         <>
-            <div className={"cardContainer"}>
-                {pokemonsWithImages.map((pokemon) => (
-                    <PokemonCard key={pokemon.id} pokemon={pokemon}/>
-                ))}
+            <header>
+                <h1>Pokemon</h1>
+            </header>
+            <div className={"content"}>
+                <PokemonGrid pokemons={pokemonsWithImages}/>
             </div>
         </>
     );
