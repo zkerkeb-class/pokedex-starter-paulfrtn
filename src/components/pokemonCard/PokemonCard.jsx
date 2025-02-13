@@ -1,9 +1,10 @@
 import styles from './PokemonCard.module.css'
 import type from '../../assets/types/Bug.png'
 import PropTypes from "prop-types";
+import { pokemonImages } from '../../assets/imageLibrary.js'
 
 
-const PokemonInfo = ({text, info}) =>{
+const PokemonInfo = ({text, info}) => {
     return (
         <div className={styles.pokemonInfo}>
             <p>{text}</p>
@@ -21,7 +22,8 @@ PokemonInfo.propTypes = {
 };
 
 const PokemonCard = () => {
-
+    const pokemonId = 150;
+    const pokemonImage = pokemonImages[pokemonId];
     return (
         <div className={styles.container}> {/* TODO : Enlever le container plus tard */}
             <div className={styles.card}>
@@ -34,13 +36,15 @@ const PokemonCard = () => {
                     </div>
                 </div>
                 <div className={styles.content}>
-                    <div className={styles.pokemonImg}></div>
+                    <div className={styles.pokemonImg}>
+                        <img alt={"pokemon"} width={"150px"} src={pokemonImage}/>
+                    </div>
                     <div className={styles.textContent}>
-                        <PokemonInfo text={"ATK :"} info={"45"} />
-                        <PokemonInfo text={"DEF :"} info={"40"} />
-                        <PokemonInfo text={"SPE ATK :"} info={"35"} />
-                        <PokemonInfo text={"SPE DEF :"} info={"35"} />
-                        <PokemonInfo text={"SPEED :"} info={"56"} />
+                        <PokemonInfo text={"ATK :"} info={"45"}/>
+                        <PokemonInfo text={"DEF :"} info={"40"}/>
+                        <PokemonInfo text={"SPE ATK :"} info={"35"}/>
+                        <PokemonInfo text={"SPE DEF :"} info={"35"}/>
+                        <PokemonInfo text={"SPEED :"} info={"56"}/>
                     </div>
                 </div>
             </div>
