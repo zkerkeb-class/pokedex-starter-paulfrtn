@@ -1,8 +1,4 @@
 import styles from './PokemonCard.module.css'
-import type from '../../assets/types/Bug.png'
-import PropTypes from "prop-types";
-import { pokemonImages } from '../../assets/imageLibrary.js'
-
 
 const PokemonInfo = ({text, info}) => {
     return (
@@ -13,43 +9,51 @@ const PokemonInfo = ({text, info}) => {
     );
 }
 
-PokemonInfo.propTypes = {
-    text: PropTypes.string.isRequired,
-    info: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]).isRequired
-};
+const PokemonCard = ({pokemon}) => {
+    if (!pokemon) {
+        return <div>Loading...</div>;
+    }
 
-const PokemonCard = () => {
-    const pokemonId = 150;
-    const pokemonImage = pokemonImages[pokemonId];
+    const {name, type, base, image} = pokemon;
+    {type.map((t) => (
+        console.log(`../../assets/types/${t}.png`)
+    ))}
     return (
-        <div className={styles.container}> {/* TODO : Enlever le container plus tard */}
+        // <div className={styles.container}>
             <div className={styles.card}>
                 <div className={styles.header}>
-                    <div className={styles.rightHeader}><p>{"Bublizarre"}</p></div>
+                    <div className={styles.rightHeader}>
+                        <p>{name.french}</p>
+                    </div>
                     <div className={styles.leftHeader}>
-                        <p className={styles.PV}>{"PV"}</p>
-                        <p>{"10"}</p>
-                        <img alt={"Type"} className={styles.type} src={type}/>
+                        <p className={styles.PV}>PV</p>
+                        <p>{base.HP}</p>
+                        <div className={styles.types}>
+                            {type.map((t, index) => (
+                                <img
+                                    key={index}
+                                    alt={t}
+                                    src={`src/assets/types/${t}.png`}
+                                />
+                                ))}
+                        </div>
                     </div>
                 </div>
                 <div className={styles.content}>
                     <div className={styles.pokemonImg}>
-                        <img alt={"pokemon"} width={"150px"} src={pokemonImage}/>
+                        <img alt={name.french} width="150px" src={image}/>
                     </div>
                     <div className={styles.textContent}>
-                        <PokemonInfo text={"ATK :"} info={"45"}/>
-                        <PokemonInfo text={"DEF :"} info={"40"}/>
-                        <PokemonInfo text={"SPE ATK :"} info={"35"}/>
-                        <PokemonInfo text={"SPE DEF :"} info={"35"}/>
-                        <PokemonInfo text={"SPEED :"} info={"56"}/>
+                        <PokemonInfo text="ATK :" info={base.Attack}/>
+                        <PokemonInfo text="DEF :" info={base.Defense}/>
+                        <PokemonInfo text="SPE ATK :" info={base["Sp. Attack"]}/>
+                        <PokemonInfo text="SPE DEF :" info={base["Sp. Defense"]}/>
+                        <PokemonInfo text="SPEED :" info={base.Speed}/>
                     </div>
                 </div>
             </div>
-        </div>
+        // </div>
     );
-}
+};
 
 export default PokemonCard;

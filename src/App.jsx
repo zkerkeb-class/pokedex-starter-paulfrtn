@@ -1,14 +1,17 @@
-import './App.css'
-import PokemonCard from "./components/pokemonCard/PokemonCard.jsx"
+import './App.css';
+import PokemonCard from "./components/pokemonCard/PokemonCard.jsx";
+import pokemonsWithImages from "./assets/pokemons";
 
 function App() {
     return (
         <>
             <div className={"cardContainer"}>
-                <PokemonCard/>
+                {pokemonsWithImages.map((pokemon) => (
+                    <PokemonCard key={pokemon.id} pokemon={pokemon}/>
+                ))}
             </div>
         </>
-    )
+    );
 }
 
-export default App
+export default App;
