@@ -16,7 +16,6 @@ const PokemonCard = ({pokemon}) => {
 
     const {name, type, base, image} = pokemon;
     return (
-        // <div className={styles.container}>
             <div className={styles.card}>
                 <div className={styles.header}>
                     <div className={styles.rightHeader}>
@@ -49,7 +48,6 @@ const PokemonCard = ({pokemon}) => {
                     </div>
                 </div>
             </div>
-        // </div>
     );
 };
 

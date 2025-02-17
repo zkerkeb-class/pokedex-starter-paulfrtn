@@ -1,14 +1,3 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    min-width: 100vw;
-    gap: 10px;
-    perspective: 1200px;
-    overflow: hidden;
-}
-
 .card {
     --card-width: 300px;
 
