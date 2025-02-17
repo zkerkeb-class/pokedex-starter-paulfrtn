@@ -1,4 +1,4 @@
-import PokemonCard from "../pokemonCard/PokemonCard.jsx";
+import PokemonCard from "../PokemonCard/PokemonCard.jsx";
 import styles from './PokemonGrid.module.css';
 
 const PokemonGrid = ({pokemons}) => {
