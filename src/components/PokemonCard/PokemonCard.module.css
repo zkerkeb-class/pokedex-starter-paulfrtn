@@ -10,10 +10,13 @@
 }
 
 .card {
+    --card-width: 300px;
+
     display: flex;
     flex-direction: column;
-    width: 315px;
-    height: 440px;
+    position: relative;
+    width: var(--card-width);
+    height: calc(var(--card-width) * (440 / 315));
     background-color: darkseagreen;
     border: 8px solid #646cff;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -25,6 +28,7 @@
 .card:hover {
     transform: rotate3d(1, 1, 0, 15deg);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 
 .card:active{
@@ -76,7 +80,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;    
+    align-items: flex-start;
     gap: 8px;
     width: 70%;
     height: 40%;
