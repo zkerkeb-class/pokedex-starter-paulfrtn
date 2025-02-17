@@ -11,7 +11,7 @@ const FilterPokemon = ({selectedType, setSelectedType}) => {
             onChange={(e) => setSelectedType(e.target.value)}
             style={{ padding: '8px' }}
         >
-            <option value="">Tous les types</option>
+            <option value="">{"Tous les types"}</option>
             {types.map((type) =>(
                 <option key={type} value = {type}>{type}</option>
             ))}
