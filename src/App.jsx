@@ -1,7 +1,7 @@
 import './App.css';
 import pokemonsWithImages from "./assets/pokemons";
 import PokemonGrid from "./components/PokemonGrid/PokemonGrid.jsx";
-import { useState } from 'react';
+import {useState} from 'react';
 import SearchPokemon from "./components/SearchPokemon/SearchPokemon.jsx";
 import FilterPokemon from "./components/FilterPokemon/FilterPokemon.jsx";
 
@@ -18,15 +18,20 @@ function App() {
 
     return (
         <>
-            <header style={{ margin: 0, padding: 0 }}>
+            <header style={{
+                display: "flex",
+
+                justifyContent: "space-around",
+                alignItems: "center",
+                margin: 0,
+                padding: 0
+            }}>
+                <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
                 <h1>Pokemon</h1>
-                <div>
-                    <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                    <FilterPokemon selectedType={selectedType} setSelectedType={setSelectedType} />
-                </div>
+                <FilterPokemon selectedType={selectedType} setSelectedType={setSelectedType}/>
             </header>
             <div className={"content"}>
-                <PokemonGrid pokemons={filteredPokemons} />
+                <PokemonGrid pokemons={filteredPokemons}/>
             </div>
         </>
     );
