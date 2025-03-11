@@ -1,32 +1,25 @@
-import { useState } from "react";
-import FilterPokemon from "../FilterPokemon/FilterPokemon";
 import styles from "./AddEditModal.module.css";
 import MyButton from "../UI-components/Button/MyButton.jsx";
 
-const AddEditModal = ({ isEditing, isOpen, handleClose, pokemon }) => {
-  const [formData, setFormData] = useState({
-    name: {
-      french: "",
-      english: "",
-      japanese: "",
-      chinese: "",
-    },
-    types: [],
-    base: {
-      HP: 0,
-      Attack: 0,
-      Defense: 0,
-      "Sp. Attack": 0,
-      "Sp. Defense": 0,
-      Speed: 0,
-    },
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: Implement submit logic
-    handleClose();
-  };
+const AddEditModal = ({ isEditing, isOpen, handleClose }) => {
+  if (!isOpen) return null;
+  // const [formData, setFormData] = useState({
+  //   name: {
+  //     french: "",
+  //     english: "",
+  //     japanese: "",
+  //     chinese: "",
+  //   },
+  //   types: [],
+  //   base: {
+  //     HP: 0,
+  //     Attack: 0,
+  //     Defense: 0,
+  //     "Sp. Attack": 0,
+  //     "Sp. Defense": 0,
+  //     Speed: 0,
+  //   },
+  // });
 
   return (
     <div className={styles.overlay} onClick={handleClose}>
