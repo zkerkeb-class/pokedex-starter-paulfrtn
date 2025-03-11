@@ -1,0 +1,10 @@
+.select {
+    background-color: #213547;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.select:focus {
+    outline: none;
+}
