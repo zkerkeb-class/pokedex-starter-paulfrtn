@@ -10,7 +10,7 @@ const PokemonInfo = ({ text, info }) => {
   );
 };
 
-const PokemonCard = ({ pokemon }) => {
+const PokemonCard = ({ pokemon, onClick }) => {
   if (!pokemon) {
     return <div>Loading...</div>;
   }
@@ -41,6 +41,7 @@ const PokemonCard = ({ pokemon }) => {
         background: getBackground(),
         backgroundSize: "100% 100%",
       }}
+      onClick={() => onClick(pokemon)}
     >
       <div className={styles.header}>
         <div className={styles.rightHeader}>

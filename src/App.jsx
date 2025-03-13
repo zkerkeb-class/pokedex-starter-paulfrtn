@@ -9,84 +9,53 @@ import AddEditModal from "./components/AddEditModal/AddEditModal.jsx";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedTypes, setSelectedTypes] = useState([]);
   const [pokemons, setPokemons] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
 
   const handleClose = () => {
     setIsOpen(false);
+    setSelectedPokemon(null);
+  };
+
+  const fetchPokemons = async () => {
+    try {
+      const data = await getAllPokemons();
+      setPokemons(data.pokemons);
+    } catch (err) {
+      setError(`Failed to fetch pokemons: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const refreshPokemons = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    await fetchPokemons();
   };
 
   useEffect(() => {
-    const fetchPokemons = async () => {
-      try {
-        const data = await getAllPokemons();
-        setPokemons(data.pokemons);
-      } catch (err) {
-        setError(`Failed to fetch pokemons: ${err.message}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     void fetchPokemons();
-
-    // const newPokemon = {
-    //     id: 3001,
-    //     name: {
-    //         french: 'Bulbizarre',
-    //         english: 'Bulbasaur',
-    //         japanese: 'CC',
-    //         chinese: 'damn'
-    //     },
-    //     type: ['Grass', 'Poison'],
-    //     base: {
-    //         HP: 45,
-    //         Attack: 49,
-    //         Defense: 49,
-    //         Sp_Attack: 65,
-    //         Sp_Defense: 65,
-    //         Speed: 45
-    //     },
-    //     image: 'https://example.com/bulbasaur.png'
-    // };
-    // createPokemon(newPokemon);
-    //
-    // const pokemon150 = getPokemonById(150);
-    // console.log("TEST ID :", pokemon150);
-    //
-    //
-    // const new127 = {
-    //     id: 127,
-    //     name: {
-    //         french: 'ETATATEF2DVZJDZJHG',
-    //         english: 'Bulbasaur',
-    //         japanese: 'CC',
-    //         chinese: 'damn'
-    //     },
-    //     type: ['Grass', 'Poison'],
-    //     base: {
-    //         HP: 45,
-    //         Attack: 49,
-    //         Defense: 49,
-    //         Sp_Attack: 65,
-    //         Sp_Defense: 65,
-    //         Speed: 45
-    //     },
-    //     image: 'https://example.com/bulbasaur.png'
-    // };
-    // updatePokemon(127, new127).then(r => console.log(r));
   }, []);
+
+  const onPokemonSelect = (pokemon) => {
+    setSelectedPokemon(pokemon);
+    setIsEditing(true);
+    setIsOpen(true);
+  };
 
   const filteredPokemons = pokemons.filter((pokemon) => {
     const matchesName = pokemon.name.french
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
-    const matchesType = selectedType
-      ? pokemon.type.includes(selectedType)
-      : true;
+
+    const matchesType =
+      selectedTypes.length === 0 ||
+      selectedTypes.some((type) => pokemon.type.includes(type));
 
     return matchesName && matchesType;
   });
@@ -99,7 +68,6 @@ function App() {
       <header
         style={{
           display: "flex",
-
           justifyContent: "space-around",
           alignItems: "center",
           margin: 0,
@@ -107,26 +75,33 @@ function App() {
         }}
       >
         <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <h1>Pokemon</h1>
+        <h1>Pokémon</h1>
         <MyButton
           isEditing={false}
           placeholder={"Ajouter"}
           onClick={() => {
             setIsOpen(true);
+            setIsEditing(false);
+            setSelectedPokemon(null);
           }}
         />
         <FilterPokemon
-          selectedType={selectedType}
-          setSelectedType={setSelectedType}
+          selectedTypes={selectedTypes}
+          setSelectedTypes={setSelectedTypes}
         />
       </header>
       <div className={"content"}>
-        <PokemonGrid pokemons={filteredPokemons} />
+        <PokemonGrid
+          pokemons={filteredPokemons}
+          onPokemonSelect={onPokemonSelect}
+        />
       </div>
       <AddEditModal
-        isEditing={false}
+        pokemon={selectedPokemon}
+        isEditing={isEditing}
         isOpen={isOpen}
         handleClose={handleClose}
+        refreshPokemons={refreshPokemons}
       />
     </>
   );

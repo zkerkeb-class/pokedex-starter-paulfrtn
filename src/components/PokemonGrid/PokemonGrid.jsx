@@ -1,11 +1,15 @@
 import PokemonCard from "../PokemonCard/PokemonCard.jsx";
 import styles from "./PokemonGrid.module.css";
 
-const PokemonGrid = ({ pokemons }) => {
+const PokemonGrid = ({ pokemons, onPokemonSelect }) => {
   return (
     <div className={styles.cardContainer}>
       {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        <PokemonCard
+          key={pokemon.id}
+          pokemon={pokemon}
+          onClick={() => onPokemonSelect(pokemon)}
+        />
       ))}
     </div>
   );

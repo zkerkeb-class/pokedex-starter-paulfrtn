@@ -32,9 +32,9 @@ export const createPokemon = async (pokemon) => {
   }
 };
 
-export const updatePokemon = async (id, pokemon) => {
+export const updatePokemon = async (pokemon) => {
   try {
-    await api.put(`/${id}`, pokemon);
+    await api.put(`/${pokemon.id}`, pokemon);
   } catch (error) {
     console.error("Erreur lors de la modification", error);
   }

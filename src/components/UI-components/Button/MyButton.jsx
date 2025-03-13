@@ -1,6 +1,6 @@
 import styles from "./MyButton.module.css";
 
-const MyButton = ({ style, onClick, placeholder }) => {
+const MyButton = ({ style, onClick, placeholder, type }) => {
   return (
     <div>
       <button
@@ -9,6 +9,7 @@ const MyButton = ({ style, onClick, placeholder }) => {
         style={{
           ...style,
         }}
+        type={type}
       >
         {placeholder}
       </button>
