@@ -57,9 +57,9 @@ export const deletePokemon = async (id) => {
 export const searchPokemons = async (searchTerm, types) => {
   try {
     const params = new URLSearchParams();
-    if (searchTerm) params.append('searchTerm', searchTerm);
-    if (types && types.length > 0) params.append('types', types.join(','));
-    
+    if (searchTerm) params.append("searchTerm", searchTerm);
+    if (types && types.length > 0) params.append("types", types.join(","));
+
     const response = await api.get(`/search?${params.toString()}`);
     return response.data;
   } catch (error) {

@@ -67,7 +67,7 @@ const AddEditModal = ({
       const categoryIndex = name.indexOf(".");
       const category = name.substring(0, categoryIndex);
       const key = name.substring(categoryIndex + 1);
-      
+
       setFormData((prev) => ({
         ...prev,
         [category]: {
@@ -113,7 +113,8 @@ const AddEditModal = ({
         japanese: formData.name,
         chinese: formData.name,
       },
-      type: formData.type && formData.type.length > 0 ? formData.type : ["Normal"],
+      type:
+        formData.type && formData.type.length > 0 ? formData.type : ["Normal"],
       base: {
         HP: parseInt(formData.base.HP) || 0,
         Attack: parseInt(formData.base.Attack) || 0,
@@ -122,7 +123,7 @@ const AddEditModal = ({
         "Sp. Defense": parseInt(formData.base["Sp. Defense"]) || 0,
         Speed: parseInt(formData.base.Speed) || 0,
       },
-      image: formData.image || "/assets/pokemons/25.png"
+      image: formData.image || "/assets/pokemons/25.png",
     };
 
     try {

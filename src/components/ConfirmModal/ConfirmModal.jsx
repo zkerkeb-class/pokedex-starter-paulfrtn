@@ -36,4 +36,4 @@ const ConfirmModal = ({ isOpen, handleClose, onConfirm, pokemonName }) => {
   );
 };
 
-export default ConfirmModal; 
+export default ConfirmModal;
