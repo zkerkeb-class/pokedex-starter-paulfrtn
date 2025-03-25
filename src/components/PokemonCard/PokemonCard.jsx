@@ -45,7 +45,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
     >
       <div className={styles.header}>
         <div className={styles.rightHeader}>
-          <p>{name.french}</p>
+          <p>{name}</p>
         </div>
         <div className={styles.leftHeader}>
           <p className={styles.PV}>PV</p>
@@ -59,7 +59,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
           ))}
         </div>
         <div className={styles.pokemonImg}>
-          <img alt={name.french} width="150px" src={image} />
+          <img alt={name} width="150px" src={image} />
         </div>
         <div className={styles.textContent}>
           <PokemonInfo text="ATK :" info={base.Attack} />
