@@ -9,6 +9,20 @@ import {
   deletePokemon,
 } from "../../services/api.js";
 
+const initialFormState = {
+  id: null,
+  name: "",
+  type: [],
+  base: {
+    HP: 0,
+    Attack: 0,
+    Defense: 0,
+    "Sp. Attack": 0,
+    "Sp. Defense": 0,
+    Speed: 0,
+  },
+};
+
 const AddEditModal = ({
   isEditing,
   isOpen,
@@ -18,19 +32,7 @@ const AddEditModal = ({
 }) => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    id: null,
-    name: "",
-    type: [],
-    base: {
-      HP: 0,
-      Attack: 0,
-      Defense: 0,
-      "Sp. Attack": 0,
-      "Sp. Defense": 0,
-      Speed: 0,
-    },
-  });
+  const [formData, setFormData] = useState({ ...initialFormState });
 
   useEffect(() => {
     if (isEditing && pokemon && Object.keys(pokemon).length > 0) {
@@ -40,37 +42,13 @@ const AddEditModal = ({
       });
       setSelectedTypes(pokemon.type || []);
     } else {
-      setFormData({
-        id: null,
-        name: "",
-        type: [],
-        base: {
-          HP: 0,
-          Attack: 0,
-          Defense: 0,
-          "Sp. Attack": 0,
-          "Sp. Defense": 0,
-          Speed: 0,
-        },
-      });
+      setFormData({ ...initialFormState });
       setSelectedTypes([]);
     }
   }, [isEditing, pokemon]);
 
   const handleCloseAndReset = () => {
-    setFormData({
-      id: null,
-      name: "",
-      type: [],
-      base: {
-        HP: 0,
-        Attack: 0,
-        Defense: 0,
-        "Sp. Attack": 0,
-        "Sp. Defense": 0,
-        Speed: 0,
-      },
-    });
+    setFormData({ ...initialFormState });
     setSelectedTypes([]);
     handleClose();
   };
@@ -86,9 +64,10 @@ const AddEditModal = ({
     const { name, value } = e.target;
 
     if (name.includes(".")) {
-      const firstDotIndex = name.indexOf(".");
-      const category = name.substring(0, firstDotIndex);
-      const key = name.substring(firstDotIndex + 1);
+      const categoryIndex = name.indexOf(".");
+      const category = name.substring(0, categoryIndex);
+      const key = name.substring(categoryIndex + 1);
+      
       setFormData((prev) => ({
         ...prev,
         [category]: {
@@ -130,20 +109,33 @@ const AddEditModal = ({
       ...formData,
       name: {
         french: formData.name,
-        english: "",
-        japanese: "",
-        chinese: "",
-      }
+        english: formData.name,
+        japanese: formData.name,
+        chinese: formData.name,
+      },
+      type: formData.type && formData.type.length > 0 ? formData.type : ["Normal"],
+      base: {
+        HP: parseInt(formData.base.HP) || 0,
+        Attack: parseInt(formData.base.Attack) || 0,
+        Defense: parseInt(formData.base.Defense) || 0,
+        "Sp. Attack": parseInt(formData.base["Sp. Attack"]) || 0,
+        "Sp. Defense": parseInt(formData.base["Sp. Defense"]) || 0,
+        Speed: parseInt(formData.base.Speed) || 0,
+      },
+      image: formData.image || "/assets/pokemons/25.png"
     };
 
-    if (!formData.id) {
-      await createPokemon(pokemonData);
-    } else {
-      await updatePokemon(pokemonData);
+    try {
+      if (!formData.id) {
+        await createPokemon(pokemonData);
+      } else {
+        await updatePokemon(pokemonData);
+      }
+      refreshPokemons();
+      handleCloseAndReset();
+    } catch (error) {
+      console.error("Error saving Pokémon:", error);
     }
-
-    refreshPokemons();
-    handleCloseAndReset();
   };
 
   if (!isOpen) return null;
@@ -165,9 +157,9 @@ const AddEditModal = ({
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formTop}>
               <input
-                type={"text"}
-                name={"name"}
-                placeholder={"Nom du Pokémon"}
+                type="text"
+                name="name"
+                placeholder="Nom du Pokémon"
                 value={formData.name}
                 onChange={handleChange}
               />
@@ -232,17 +224,17 @@ const AddEditModal = ({
               />
               {isEditing && (
                 <MyButton
-                  placeholder={"Supprimer"}
+                  placeholder="Supprimer"
                   onClick={confirmDelete}
                   style={{ backgroundColor: "#d03939" }}
-                  type={"button"}
+                  type="button"
                 />
               )}
             </div>
           </form>
         </div>
       </div>
-      
+
       <ConfirmModal
         isOpen={isConfirmModalOpen}
         handleClose={() => setIsConfirmModalOpen(false)}

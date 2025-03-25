@@ -26,25 +26,31 @@ export const getPokemonById = async (id) => {
 
 export const createPokemon = async (pokemon) => {
   try {
-    await api.post("/", pokemon);
+    const response = await api.post("/", pokemon);
+    return response.data;
   } catch (error) {
     console.error("Erreur lors de la creation", error);
+    throw error;
   }
 };
 
 export const updatePokemon = async (pokemon) => {
   try {
-    await api.put(`/${pokemon.id}`, pokemon);
+    const response = await api.put(`/${pokemon.id}`, pokemon);
+    return response.data;
   } catch (error) {
     console.error("Erreur lors de la modification", error);
+    throw error;
   }
 };
 
 export const deletePokemon = async (id) => {
   try {
-    await api.delete(`/${id}`);
+    const response = await api.delete(`/${id}`);
+    return response.data;
   } catch (error) {
-    console.error("Erreur lors de la modification", error);
+    console.error("Erreur lors de la suppression", error);
+    throw error;
   }
 };
 
