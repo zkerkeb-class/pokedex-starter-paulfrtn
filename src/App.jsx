@@ -1,41 +1,15 @@
-import './App.css';
-import pokemonsWithImages from "./assets/pokemons";
-import PokemonGrid from "./components/PokemonGrid/PokemonGrid.jsx";
-import {useState} from 'react';
-import SearchPokemon from "./components/SearchPokemon/SearchPokemon.jsx";
-import FilterPokemon from "./components/FilterPokemon/FilterPokemon.jsx";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
+import AllPokemons from "./pages/AllPokemons/AllPokemons.jsx";
 
 function App() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedType, setSelectedType] = useState('');
-
-    const filteredPokemons = pokemonsWithImages.filter((pokemon) => {
-        const matchesName = pokemon.name.french.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesType = selectedType ? pokemon.type.includes(selectedType) : true;
-
-        return matchesName && matchesType;
-    });
-
-    return (
-        <>
-            <header style={{
-                display: "flex",
-
-                justifyContent: "space-around",
-                alignItems: "center",
-                margin: 0,
-                padding: 0
-            }}>
-                <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-                <h1>Pokemon</h1>
-                <FilterPokemon selectedType={selectedType} setSelectedType={setSelectedType}/>
-            </header>
-            <div className={"content"}>
-                <PokemonGrid pokemons={filteredPokemons}/>
-            </div>
-        </>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<AllPokemons />} />
+      </Routes>
+    </Router>
+  );
 }
-
 
 export default App;

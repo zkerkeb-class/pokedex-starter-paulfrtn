@@ -301,5 +301,5 @@ export const pokemonImages = {
   148: dragonair,
   149: dragonite,
   150: mewtwo,
-  151: mew
-}
+  151: mew,
+};
