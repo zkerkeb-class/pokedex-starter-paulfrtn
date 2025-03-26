@@ -14,12 +14,12 @@ const initialFormState = {
   name: "",
   type: [],
   base: {
-    HP: 0,
-    Attack: 0,
-    Defense: 0,
-    "Sp. Attack": 0,
-    "Sp. Defense": 0,
-    Speed: 0,
+    hp: 0,
+    attack: 0,
+    defense: 0,
+    specialAttack: 0,
+    specialDefense: 0,
+    speed: 0,
   },
 };
 
@@ -38,7 +38,7 @@ const AddEditModal = ({
     if (isEditing && pokemon && Object.keys(pokemon).length > 0) {
       setFormData({
         ...pokemon,
-        name: pokemon.name || "",
+        name: pokemon.name.french || "",
       });
       setSelectedTypes(pokemon.type || []);
     } else {
@@ -105,26 +105,37 @@ const AddEditModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // S'assurer que name est un objet avec les bonnes propriétés
+    const nameObj =
+      typeof formData.name === "string"
+        ? {
+            french: formData.name,
+            english: formData.name,
+            japanese: formData.name,
+            chinese: formData.name,
+          }
+        : formData.name;
+
     const pokemonData = {
       ...formData,
-      name: {
-        french: formData.name,
-        english: formData.name,
-        japanese: formData.name,
-        chinese: formData.name,
-      },
+      name: nameObj,
       type:
-        formData.type && formData.type.length > 0 ? formData.type : ["Normal"],
+        formData.type && formData.type.length > 0 ? formData.type : ["normal"],
       base: {
-        HP: parseInt(formData.base.HP) || 0,
-        Attack: parseInt(formData.base.Attack) || 0,
-        Defense: parseInt(formData.base.Defense) || 0,
-        "Sp. Attack": parseInt(formData.base["Sp. Attack"]) || 0,
-        "Sp. Defense": parseInt(formData.base["Sp. Defense"]) || 0,
-        Speed: parseInt(formData.base.Speed) || 0,
+        hp: parseInt(formData.base.hp) || 0,
+        attack: parseInt(formData.base.attack) || 0,
+        defense: parseInt(formData.base.defense) || 0,
+        specialAttack: parseInt(formData.base.specialAttack) || 0,
+        specialDefense: parseInt(formData.base.specialDefense) || 0,
+        speed: parseInt(formData.base.speed) || 0,
       },
       image: formData.image || "/assets/pokemons/25.png",
     };
+
+    // Assurons-nous que l'ID est présent pour la mise à jour
+    if (formData.id) {
+      pokemonData.id = formData.id;
+    }
 
     try {
       if (!formData.id) {
@@ -135,7 +146,7 @@ const AddEditModal = ({
       refreshPokemons();
       handleCloseAndReset();
     } catch (error) {
-      console.error("Error saving Pokémon:", error);
+      console.error("Erreur:", error);
     }
   };
 
@@ -173,46 +184,46 @@ const AddEditModal = ({
               <div>
                 <input
                   type="number"
-                  name="base.HP"
+                  name="base.hp"
                   placeholder="HP"
-                  value={formData.base.HP}
+                  value={formData.base.hp}
                   onChange={handleChange}
                 />
                 <input
                   type="number"
-                  name="base.Attack"
+                  name="base.attack"
                   placeholder="Attaque"
-                  value={formData.base.Attack}
+                  value={formData.base.attack}
                   onChange={handleChange}
                 />
                 <input
                   type="number"
-                  name="base.Defense"
+                  name="base.defense"
                   placeholder="Défense"
-                  value={formData.base.Defense}
+                  value={formData.base.defense}
                   onChange={handleChange}
                 />
               </div>
               <div>
                 <input
                   type="number"
-                  name="base.Sp. Attack"
+                  name="base.specialAttack"
                   placeholder="Attaque Spéciale"
-                  value={formData.base["Sp. Attack"]}
+                  value={formData.base.specialAttack}
                   onChange={handleChange}
                 />
                 <input
                   type="number"
-                  name="base.Sp. Defense"
+                  name="base.specialDefense"
                   placeholder="Défense Spéciale"
-                  value={formData.base["Sp. Defense"]}
+                  value={formData.base.specialDefense}
                   onChange={handleChange}
                 />
                 <input
                   type="number"
-                  name="base.Speed"
+                  name="base.speed"
                   placeholder="Vitesse"
-                  value={formData.base.Speed}
+                  value={formData.base.speed}
                   onChange={handleChange}
                 />
               </div>

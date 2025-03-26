@@ -6,6 +6,8 @@ const FilterPokemon = ({ selectedTypes = [], setSelectedTypes }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
   const handleTypeToggle = (type) => {
     setSelectedTypes((prev) => {
       if (prev.includes(type)) {
@@ -31,7 +33,9 @@ const FilterPokemon = ({ selectedTypes = [], setSelectedTypes }) => {
   return (
     <div className={styles.dropdown} ref={dropdownRef}>
       <div className={styles.select} onClick={() => setIsOpen(!isOpen)}>
-        {selectedTypes.length > 0 ? selectedTypes.join(", ") : "Tous les types"}
+        {selectedTypes.length > 0
+          ? selectedTypes.map((type) => capitalize(type)).join(", ")
+          : "Tous les types"}
         <span className={`${styles.arrow} ${isOpen ? styles.open : ""}`}>
           ▼
         </span>
@@ -46,7 +50,7 @@ const FilterPokemon = ({ selectedTypes = [], setSelectedTypes }) => {
                 checked={selectedTypes.includes(type)}
                 onChange={() => handleTypeToggle(type)}
               />
-              {type}
+              {capitalize(type)}
             </label>
           ))}
         </div>

@@ -14,7 +14,9 @@ const ConfirmModal = ({ isOpen, handleClose, onConfirm, pokemonName }) => {
           </button>
         </div>
         <div className={styles.content}>
-          <p>Êtes-vous sûr de vouloir supprimer le Pokémon "{pokemonName}" ?</p>
+          <p>
+            {`Êtes-vous sûr de vouloir supprimer le Pokémon ${pokemonName}`} ?
+          </p>
           <p>Cette action est irréversible.</p>
         </div>
         <div className={styles.actions}>
