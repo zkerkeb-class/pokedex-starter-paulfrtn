@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./AllPokemons.module.css";
 import { useEffect, useState, useMemo } from "react";
 import { getAllPokemons } from "../../services/api.js";
@@ -6,6 +7,7 @@ import MyButton from "../../components/UI-components/Button/MyButton.jsx";
 import FilterPokemon from "../../components/FilterPokemon/FilterPokemon.jsx";
 import PokemonGrid from "../../components/PokemonGrid/PokemonGrid.jsx";
 import AddEditModal from "../../components/AddEditModal/AddEditModal.jsx";
+import { Logout } from "@mui/icons-material";
 
 const AllPokemons = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,10 +18,16 @@ const AllPokemons = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setIsOpen(false);
     setSelectedPokemon(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth/login");
   };
 
   const fetchPokemons = async () => {
@@ -35,7 +43,7 @@ const AllPokemons = () => {
   };
 
   useEffect(() => {
-    fetchPokemons();
+    void fetchPokemons();
   }, []);
 
   // Filtrer les Pokémon côté client au lieu de faire des appels API à chaque changement
@@ -102,6 +110,18 @@ const AllPokemons = () => {
         <FilterPokemon
           selectedTypes={selectedTypes}
           setSelectedTypes={setSelectedTypes}
+        />
+        <MyButton
+          placeholder={<Logout />}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "35px",
+            height: "35px",
+            background: "rgba(255,0,0,0.82)",
+          }}
+          onClick={handleLogout}
         />
       </header>
       <div className={styles.content}>
