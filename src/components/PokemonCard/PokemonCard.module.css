@@ -1,109 +1,115 @@
 .card {
-  --card-width: 300px;
+    --card-width: 300px;
 
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: var(--card-width);
-  height: calc(var(--card-width) * (440 / 315));
-  border: 8px solid #646cff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
-  transition:
-    transform 0.2s ease-in-out,
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: var(--card-width);
+    height: calc(var(--card-width) * (440 / 315));
+    border: 8px solid #646cff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out,
     box-shadow 0.3s ease;
-  transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 .card:hover {
-  transform: rotate3d(1, 1, 0, 15deg);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-  z-index: 2;
+    transform: rotate3d(1, 1, 0, 15deg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 
 .card:active {
-  transform: scale(0.98);
+    transform: scale(0.98);
 }
 
 .header {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  gap: 10px;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
 }
 
 .rightHeader {
-  color: #242424;
-  font-weight: bold;
+    color: #242424;
+    font-weight: bold;
 }
 
 .leftHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2px;
 }
 
 .content {
-  flex: 15;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+    flex: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 .pokemonImg {
-  width: 80%;
-  height: 40%;
-  margin-top: 20px;
-  background-image: url("../../assets/background.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 8px;
+    width: 80%;
+    height: 40%;
+    margin-top: 20px;
+    background-image: url("../../assets/background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
 }
 
 .textContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 8px;
-  width: 70%;
-  height: 40%;
-  margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    width: 70%;
+    height: 40%;
+    margin-top: 20px;
 }
 
 p {
-  margin: 0;
-  padding: 0;
-  color: #242424;
-  font-weight: bold;
+    margin: 0;
+    padding: 0;
+    color: #242424;
+    font-weight: bold;
 }
 
 .types {
-  position: absolute;
-  display: flex;
-  width: auto;
-  height: 20px;
-  gap: 10px;
-  top: 40px;
-  left: 10px;
+    position: absolute;
+    display: flex;
+    width: auto;
+    height: 20px;
+    gap: 10px;
+    top: 40px;
+    left: 10px;
 }
 
 .PV {
-  font-size: x-small;
-  font-weight: bold;
-  margin-top: 10px;
+    font-size: x-small;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .pokemonInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.edit {
+    display: flex;
+    width: 95%;
+    padding-bottom: 5px;
+    justify-content: flex-end;
 }
