@@ -16,6 +16,18 @@
     align-items: center;
     width: 100%;
     padding: 2vh;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.pageTitle {
+    color: white;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
 }
 
 .cardContainer {
@@ -23,11 +35,122 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2vh;
 }
 
 .cardInfo {
     width: 70%;
-    height: 45%;
+    height: 70%;
     background-color: #213547;
     border-radius: 12px;
+    padding: 2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: auto;
+}
+
+.pokemonHeader {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pokemonImage {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.pokemonTitle {
+    flex: 1;
+}
+
+.pokemonTitle h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.types {
+    display: flex;
+    gap: 1rem;
+}
+
+.typeImage {
+    width: 125px;
+    object-fit: contain;
+}
+
+.pokemonDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.statsSection, .namesSection {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.statsSection h2, .namesSection h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.statName {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.statValue {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.namesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.nameItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+.language {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.name {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
