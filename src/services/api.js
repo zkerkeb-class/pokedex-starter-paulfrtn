@@ -24,8 +24,31 @@ export const getPokemonById = async (id) => {
   }
 };
 
+export const getNextPokemonId = async () => {
+  try {
+    // Récupérer tous les Pokémon pour déterminer le prochain ID
+    const pokemons = await getAllPokemons();
+    if (!pokemons || pokemons.length === 0) {
+      return 1; // Si pas de Pokémon, commencer à 1
+    }
+
+    // Trouver l'ID le plus élevé
+    const maxId = Math.max(...pokemons.map((pokemon) => pokemon.id));
+    return maxId + 1; // Retourner le prochain ID disponible
+  } catch (error) {
+    console.error("Erreur lors de la récupération du prochain ID", error);
+    throw error;
+  }
+};
+
 export const createPokemon = async (pokemon) => {
   try {
+    // Si aucun ID n'est fourni, en générer un automatiquement
+    if (!pokemon.id) {
+      const nextId = await getNextPokemonId();
+      pokemon = { ...pokemon, id: nextId };
+    }
+
     const response = await api.post("/", pokemon);
     return response.data;
   } catch (error) {

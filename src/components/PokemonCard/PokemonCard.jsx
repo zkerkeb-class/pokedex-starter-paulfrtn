@@ -17,6 +17,8 @@ const PokemonCard = ({ pokemon, onClick }) => {
 
   const { name, type, base, image } = pokemon;
 
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
   const getBackground = () => {
     if (type.length === 1) {
       return typeColors[type[0]];
@@ -45,28 +47,32 @@ const PokemonCard = ({ pokemon, onClick }) => {
     >
       <div className={styles.header}>
         <div className={styles.rightHeader}>
-          <p>{name}</p>
+          <p>{name.french}</p>
         </div>
         <div className={styles.leftHeader}>
           <p className={styles.PV}>PV</p>
-          <p>{base.HP}</p>
+          <p>{base.hp}</p>
         </div>
       </div>
       <div className={styles.content}>
         <div className={styles.types}>
           {type.map((t, index) => (
-            <img key={index} alt={t} src={`src/assets/types/${t}.png`} />
+            <img
+              key={index}
+              alt={t}
+              src={`src/assets/types/${capitalize(t)}.png`}
+            />
           ))}
         </div>
         <div className={styles.pokemonImg}>
-          <img alt={name} width="150px" src={image} />
+          <img alt={name.french} width="150px" src={image} />
         </div>
         <div className={styles.textContent}>
-          <PokemonInfo text="ATK :" info={base.Attack} />
-          <PokemonInfo text="DEF :" info={base.Defense} />
-          <PokemonInfo text="SPE ATK :" info={base["Sp. Attack"]} />
-          <PokemonInfo text="SPE DEF :" info={base["Sp. Defense"]} />
-          <PokemonInfo text="SPEED :" info={base.Speed} />
+          <PokemonInfo text="ATK :" info={base.attack} />
+          <PokemonInfo text="DEF :" info={base.defense} />
+          <PokemonInfo text="SPE ATK :" info={base.specialAttack} />
+          <PokemonInfo text="SPE DEF :" info={base.specialDefense} />
+          <PokemonInfo text="SPEED :" info={base.speed} />
         </div>
       </div>
     </div>
