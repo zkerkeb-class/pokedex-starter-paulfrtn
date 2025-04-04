@@ -1,7 +1,7 @@
 import styles from "./PokemonCard.module.css";
 import { typeColors } from "../../constants/typesColors.js";
 import MyButton from "../UI-components/Button/MyButton.jsx";
-import { Edit } from "@mui/icons-material";
+import { Info } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const PokemonInfo = ({ text, info }) => {
@@ -18,7 +18,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
     return <div>Loading...</div>;
   }
 
-  const { id, name, type, base, image } = pokemon;
+  const { id, name, type, base, image, _id } = pokemon;
   const navigate = useNavigate();
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -46,7 +46,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
         background: getBackground(),
         backgroundSize: "100% 100%",
       }}
-      onClick={() => navigate(`/pokemon/${id}`)}
+      onClick={() => onClick(pokemon)}
     >
       <div className={styles.header}>
         <div className={styles.rightHeader}>
@@ -77,7 +77,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
           <PokemonInfo text="SPE DEF :" info={base.specialDefense} />
           <PokemonInfo text="SPEED :" info={base.speed} />
         </div>
-        <div className={styles.edit}>
+        <div className={styles.Info}>
           <MyButton
             style={{
               display: "flex",
@@ -85,16 +85,18 @@ const PokemonCard = ({ pokemon, onClick }) => {
               alignItems: "center",
               width: "25px",
               height: "25px",
-              cursor: "none",
             }}
             placeholder={
-              <Edit
+              <Info
                 sx={{
                   fontSize: 20,
                 }}
               />
             }
-            onClick={() => onClick(pokemon)}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/pokemon/${_id}`);
+            }}
           ></MyButton>
         </div>
       </div>

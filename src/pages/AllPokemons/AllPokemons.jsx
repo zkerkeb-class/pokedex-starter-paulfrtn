@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./AllPokemons.module.css";
 import { useEffect, useState, useMemo } from "react";
 import { getAllPokemons } from "../../services/api.js";
@@ -6,6 +7,7 @@ import MyButton from "../../components/UI-components/Button/MyButton.jsx";
 import FilterPokemon from "../../components/FilterPokemon/FilterPokemon.jsx";
 import PokemonGrid from "../../components/PokemonGrid/PokemonGrid.jsx";
 import AddEditModal from "../../components/AddEditModal/AddEditModal.jsx";
+import { Logout } from "@mui/icons-material";
 
 const AllPokemons = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,10 +18,16 @@ const AllPokemons = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const navigate = useNavigate();
 
   const handleClose = () => {
     setIsOpen(false);
     setSelectedPokemon(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth/login");
   };
 
   const fetchPokemons = async () => {
@@ -35,7 +43,7 @@ const AllPokemons = () => {
   };
 
   useEffect(() => {
-    fetchPokemons();
+    void fetchPokemons();
   }, []);
 
   // Filtrer les Pokémon côté client au lieu de faire des appels API à chaque changement
@@ -78,31 +86,41 @@ const AllPokemons = () => {
 
   return (
     <>
-      <header
-        className={styles.header}
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          margin: 0,
-          padding: 0,
-        }}
-      >
-        <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <h1>Pokémon</h1>
-        <MyButton
-          isEditing={false}
-          placeholder={"Ajouter"}
-          onClick={() => {
-            setIsOpen(true);
-            setIsEditing(false);
-            setSelectedPokemon(null);
-          }}
-        />
-        <FilterPokemon
-          selectedTypes={selectedTypes}
-          setSelectedTypes={setSelectedTypes}
-        />
+      <header className={styles.header}>
+        <div className={styles.headerLeftSection}>
+          <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
+        
+        <div className={styles.headerCenterSection}>
+          <h1 className={styles.headerTitle}>Pokémon</h1>
+        </div>
+        
+        <div className={styles.headerRightSection}>
+          <MyButton
+            placeholder={"Ajouter"}
+            onClick={() => {
+              setIsOpen(true);
+              setIsEditing(false);
+              setSelectedPokemon(null);
+            }}
+          />
+          <FilterPokemon
+            selectedTypes={selectedTypes}
+            setSelectedTypes={setSelectedTypes}
+          />
+          <MyButton
+            placeholder={<Logout />}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "35px",
+              height: "35px",
+              background: "rgba(255,0,0,0.82)",
+            }}
+            onClick={handleLogout}
+          />
+        </div>
       </header>
       <div className={styles.content}>
         {searchTerm || selectedTypes.length > 0 ? (

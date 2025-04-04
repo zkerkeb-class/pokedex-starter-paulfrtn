@@ -7,7 +7,7 @@
     width: var(--card-width);
     height: calc(var(--card-width) * (440 / 315));
     border: 8px solid #646cff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 25px rgba(94, 65, 164, 0.4), 0 5px 15px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     transition: transform 0.2s ease-in-out,
     box-shadow 0.3s ease;
@@ -15,9 +15,9 @@
 }
 
 .card:hover {
-    transform: rotate3d(1, 1, 0, 15deg);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 35px rgba(94, 65, 164, 0.6), 0 15px 35px rgba(0, 0, 0, 0.3);
     z-index: 2;
+    transform: scale(1.02);
 }
 
 .card:active {
@@ -107,7 +107,7 @@ p {
     width: 100%;
 }
 
-.edit {
+.Info {
     display: flex;
     width: 95%;
     padding-bottom: 5px;

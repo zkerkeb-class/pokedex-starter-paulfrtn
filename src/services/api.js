@@ -4,6 +4,19 @@ const api = axios.create({
   baseURL: "http://localhost:3000/api/pokemons",
 });
 
+const authApi = axios.create({
+  baseURL: "http://localhost:3000/api/auth",
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 export const getAllPokemons = async () => {
   try {
     const response = await api.get("/");
@@ -59,7 +72,7 @@ export const createPokemon = async (pokemon) => {
 
 export const updatePokemon = async (pokemon) => {
   try {
-    const response = await api.put(`/${pokemon.id}`, pokemon);
+    const response = await api.put(`/id/${pokemon._id}`, pokemon);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la modification", error);
@@ -69,7 +82,7 @@ export const updatePokemon = async (pokemon) => {
 
 export const deletePokemon = async (id) => {
   try {
-    const response = await api.delete(`/${id}`);
+    const response = await api.delete(`/id/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la suppression", error);
@@ -88,5 +101,31 @@ export const searchPokemons = async (searchTerm, types) => {
   } catch (error) {
     console.error("Error while searching pokemons", error);
     throw error;
+  }
+};
+
+export const login = async ({ mail, password }) => {
+  try {
+    const res = await authApi.post("/login", { mail, password });
+    localStorage.setItem("token", res.data.token);
+    return res.data;
+  } catch (e) {
+    console.error("Erreur de connexion", e);
+    throw e;
+  }
+};
+
+export const register = async ({ firstname, lastname, mail, password }) => {
+  try {
+    const res = await authApi.post("/register", {
+      firstname,
+      lastname,
+      mail,
+      password,
+    });
+    return res.data;
+  } catch (e) {
+    console.error("Erreurr d'inscription", e);
+    throw e;
   }
 };
