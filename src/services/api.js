@@ -72,7 +72,7 @@ export const createPokemon = async (pokemon) => {
 
 export const updatePokemon = async (pokemon) => {
   try {
-    const response = await api.put(`/${pokemon.id}`, pokemon);
+    const response = await api.put(`/id/${pokemon._id}`, pokemon);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la modification", error);
@@ -82,7 +82,7 @@ export const updatePokemon = async (pokemon) => {
 
 export const deletePokemon = async (id) => {
   try {
-    const response = await api.delete(`/${id}`);
+    const response = await api.delete(`/id/${id}`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la suppression", error);

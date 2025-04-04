@@ -86,43 +86,41 @@ const AllPokemons = () => {
 
   return (
     <>
-      <header
-        className={styles.header}
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          margin: 0,
-          padding: 0,
-        }}
-      >
-        <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <h1>Pokémon</h1>
-        <MyButton
-          isEditing={false}
-          placeholder={"Ajouter"}
-          onClick={() => {
-            setIsOpen(true);
-            setIsEditing(false);
-            setSelectedPokemon(null);
-          }}
-        />
-        <FilterPokemon
-          selectedTypes={selectedTypes}
-          setSelectedTypes={setSelectedTypes}
-        />
-        <MyButton
-          placeholder={<Logout />}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "35px",
-            height: "35px",
-            background: "rgba(255,0,0,0.82)",
-          }}
-          onClick={handleLogout}
-        />
+      <header className={styles.header}>
+        <div className={styles.headerLeftSection}>
+          <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
+        
+        <div className={styles.headerCenterSection}>
+          <h1 className={styles.headerTitle}>Pokémon</h1>
+        </div>
+        
+        <div className={styles.headerRightSection}>
+          <MyButton
+            placeholder={"Ajouter"}
+            onClick={() => {
+              setIsOpen(true);
+              setIsEditing(false);
+              setSelectedPokemon(null);
+            }}
+          />
+          <FilterPokemon
+            selectedTypes={selectedTypes}
+            setSelectedTypes={setSelectedTypes}
+          />
+          <MyButton
+            placeholder={<Logout />}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "35px",
+              height: "35px",
+              background: "rgba(255,0,0,0.82)",
+            }}
+            onClick={handleLogout}
+          />
+        </div>
       </header>
       <div className={styles.content}>
         {searchTerm || selectedTypes.length > 0 ? (

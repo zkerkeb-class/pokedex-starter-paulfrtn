@@ -7,7 +7,7 @@ const PokemonGrid = ({ pokemons, onPokemonSelect }) => {
       {pokemons &&
         pokemons.map((pokemon) => (
           <PokemonCard
-            key={pokemon.id}
+            key={pokemon._id}
             pokemon={pokemon}
             onClick={() => onPokemonSelect(pokemon)}
           />

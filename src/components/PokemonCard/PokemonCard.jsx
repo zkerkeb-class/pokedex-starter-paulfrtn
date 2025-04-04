@@ -18,7 +18,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
     return <div>Loading...</div>;
   }
 
-  const { id, name, type, base, image } = pokemon;
+  const { id, name, type, base, image, _id } = pokemon;
   const navigate = useNavigate();
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -95,7 +95,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
             }
             onClick={(e) => {
               e.stopPropagation();
-              navigate(`/pokemon/${id}`);
+              navigate(`/pokemon/${_id}`);
             }}
           ></MyButton>
         </div>

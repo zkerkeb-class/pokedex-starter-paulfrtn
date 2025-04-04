@@ -95,18 +95,18 @@ const PokemonInfo = () => {
             <div className={styles.namesSection}>
               <h2>Noms dans différentes langues</h2>
               <div className={styles.namesGrid}>
-                <div className={styles.nameItem}>
-                  <span className={styles.language}>Anglais</span>
-                  <span className={styles.name}>{pokemon.name?.english}</span>
-                </div>
-                <div className={styles.nameItem}>
-                  <span className={styles.language}>Japonais</span>
-                  <span className={styles.name}>{pokemon.name?.japanese}</span>
-                </div>
-                <div className={styles.nameItem}>
-                  <span className={styles.language}>Chinois</span>
-                  <span className={styles.name}>{pokemon.name?.chinese}</span>
-                </div>
+                {Object.entries(pokemon.name || {})
+                  .filter(([lang]) => lang !== "french")
+                  .map(([lang, name]) => (
+                    <div key={lang} className={styles.nameItem}>
+                      <span className={styles.language}>
+                        {lang === "english" ? "Anglais" : 
+                         lang === "japanese" ? "Japonais" : 
+                         lang === "chinese" ? "Chinois" : capitalize(lang)}
+                      </span>
+                      <span className={styles.name}>{name}</span>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

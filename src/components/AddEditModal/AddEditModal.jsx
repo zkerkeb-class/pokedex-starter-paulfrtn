@@ -33,6 +33,8 @@ const AddEditModal = ({
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [formData, setFormData] = useState({ ...initialFormState });
+  const [error, setError] = useState("");
+  const [deleteError, setDeleteError] = useState(false);
 
   useEffect(() => {
     if (isEditing && pokemon && Object.keys(pokemon).length > 0) {
@@ -50,6 +52,8 @@ const AddEditModal = ({
   const handleCloseAndReset = () => {
     setFormData({ ...initialFormState });
     setSelectedTypes([]);
+    setError("");
+    setDeleteError(false);
     handleClose();
   };
 
@@ -99,13 +103,21 @@ const AddEditModal = ({
       setIsConfirmModalOpen(false);
     } catch (error) {
       console.error("Error deleting Pokémon:", error);
+      setIsConfirmModalOpen(false);
+      
+      if (error.response && error.response.status === 403) {
+        setDeleteError(true);
+        setError("Vous n'avez pas les droits d'administrateur pour supprimer ce Pokémon.");
+      } else {
+        setError("Erreur lors de la suppression du Pokémon.");
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
-    // S'assurer que name est un objet avec les bonnes propriétés
     const nameObj =
       typeof formData.name === "string"
         ? {
@@ -131,8 +143,6 @@ const AddEditModal = ({
       },
       image: formData.image || "/assets/pokemons/25.png",
     };
-
-    // Assurons-nous que l'ID est présent pour la mise à jour
     if (formData.id) {
       pokemonData.id = formData.id;
     }
@@ -147,6 +157,7 @@ const AddEditModal = ({
       handleCloseAndReset();
     } catch (error) {
       console.error("Erreur:", error);
+      setError("Une erreur est survenue lors de l'opération.");
     }
   };
 
@@ -166,6 +177,14 @@ const AddEditModal = ({
               ✖
             </button>
           </div>
+          
+          {error && (
+            <div className={`${styles.errorMessage} ${deleteError ? styles.deleteError : ''}`}>
+              <span className={styles.errorIcon}>⚠️</span>
+              {error}
+            </div>
+          )}
+          
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formTop}>
               <input
