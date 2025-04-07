@@ -36,11 +36,25 @@ const AllPokemons = () => {
   const fetchPokemons = async () => {
     try {
       setLoading(true);
-      const { pokemons, totalPages } = await getPokemonPage({
-        pageNumber: page,
-      });
-      setAllPokemons(pokemons);
-      setPageCount(totalPages);
+      
+      // Si on a une recherche ou des filtres, on utilise la route search
+      if (searchTerm || selectedTypes.length > 0) {
+        const params = {};
+        if (searchTerm) params.searchTerm = searchTerm;
+        if (selectedTypes.length > 0) params.types = selectedTypes.join(",");
+        params.page = page;
+        
+        const { pokemons, totalPages } = await getPokemonPage(params);
+        setAllPokemons(pokemons);
+        setPageCount(totalPages);
+      } else {
+        // Sinon on utilise la pagination simple
+        const { pokemons, totalPages } = await getPokemonPage({
+          pageNumber: page,
+        });
+        setAllPokemons(pokemons);
+        setPageCount(totalPages);
+      }
     } catch (err) {
       setError(`Échec du chargement des pokemons: ${err.message}`);
     } finally {
@@ -50,30 +64,11 @@ const AllPokemons = () => {
 
   useEffect(() => {
     void fetchPokemons();
-    console.log(pageCount);
-  }, [page, pageCount]);
+  }, [page, searchTerm, selectedTypes]);
 
   const displayedPokemons = useMemo(() => {
-    if (!allPokemons) return [];
-
-    return allPokemons.filter((pokemon) => {
-      const nameMatches =
-        searchTerm === "" ||
-        (pokemon.name &&
-          (pokemon.name.french
-            ?.toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-            pokemon.name.english
-              ?.toLowerCase()
-              .includes(searchTerm.toLowerCase())));
-
-      const typeMatches =
-        selectedTypes.length === 0 ||
-        selectedTypes.every((type) => pokemon.type.includes(type));
-
-      return nameMatches && typeMatches;
-    });
-  }, [allPokemons, searchTerm, selectedTypes]);
+    return allPokemons || [];
+  }, [allPokemons]);
 
   const refreshPokemons = async () => {
     await fetchPokemons();
@@ -143,6 +138,7 @@ const AllPokemons = () => {
                 onClick={() => {
                   setSearchTerm("");
                   setSelectedTypes([]);
+                  setPage(1);
                 }}
               >
                 Réinitialiser les filtres

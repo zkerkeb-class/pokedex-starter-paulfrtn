@@ -104,10 +104,12 @@ const AddEditModal = ({
     } catch (error) {
       console.error("Error deleting Pokémon:", error);
       setIsConfirmModalOpen(false);
-      
+
       if (error.response && error.response.status === 403) {
         setDeleteError(true);
-        setError("Vous n'avez pas les droits d'administrateur pour supprimer ce Pokémon.");
+        setError(
+          "Vous n'avez pas les droits d'administrateur pour supprimer ce Pokémon.",
+        );
       } else {
         setError("Erreur lors de la suppression du Pokémon.");
       }
@@ -177,14 +179,16 @@ const AddEditModal = ({
               ✖
             </button>
           </div>
-          
+
           {error && (
-            <div className={`${styles.errorMessage} ${deleteError ? styles.deleteError : ''}`}>
+            <div
+              className={`${styles.errorMessage} ${deleteError ? styles.deleteError : ""}`}
+            >
               <span className={styles.errorIcon}>⚠️</span>
               {error}
             </div>
           )}
-          
+
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formTop}>
               <input
@@ -194,10 +198,12 @@ const AddEditModal = ({
                 value={formData.name}
                 onChange={handleChange}
               />
-              <FilterPokemon
-                selectedTypes={selectedTypes}
-                setSelectedTypes={setSelectedTypes}
-              />
+              <div className={styles.filterContainer}>
+                <FilterPokemon
+                  selectedTypes={selectedTypes}
+                  setSelectedTypes={setSelectedTypes}
+                />
+              </div>
             </div>
             <div className={styles.formMiddle}>
               <div>
