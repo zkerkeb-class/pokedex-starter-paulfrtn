@@ -1,4 +1,5 @@
 import axios from "axios";
+import error from "eslint-plugin-react/lib/util/error.js";
 
 const api = axios.create({
   baseURL: "http://localhost:3000/api/pokemons",
@@ -39,17 +40,27 @@ export const getPokemonById = async (id) => {
 
 export const getNextPokemonId = async () => {
   try {
-    // Récupérer tous les Pokémon pour déterminer le prochain ID
     const pokemons = await getAllPokemons();
     if (!pokemons || pokemons.length === 0) {
-      return 1; // Si pas de Pokémon, commencer à 1
+      return 1;
     }
 
-    // Trouver l'ID le plus élevé
     const maxId = Math.max(...pokemons.map((pokemon) => pokemon.id));
-    return maxId + 1; // Retourner le prochain ID disponible
+    return maxId + 1;
   } catch (error) {
     console.error("Erreur lors de la récupération du prochain ID", error);
+    throw error;
+  }
+};
+
+export const getPokemonPage = async ({ pageNumber }) => {
+  try {
+    const response = await api.get(`page/${pageNumber}`);
+    return response.data;
+  } catch {
+    console.error(
+      `Erreur lors de la récupération des pokemons de la page ${pageNumber}`,
+    );
     throw error;
   }
 };

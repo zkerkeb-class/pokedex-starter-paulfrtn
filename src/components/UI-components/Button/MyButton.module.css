@@ -1,30 +1,31 @@
 .MyButton {
-  background-color: #213547;
-  border-radius: 8px;
-  width: 100px;
-  height: 35px;
-  padding: 0;
-  transition: ease-in-out 0.3s;
-  outline: none;
-  box-shadow: none;
-  border: none;
+    background-color: #213547;
+    border-radius: 8px;
+    width: 100px;
+    height: 35px;
+    padding: 0;
+    transition: ease-in-out 0.3s;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: white;
 }
 
 .MyButton:hover {
-  background-color: #213547;
-  transform: scale(1.1);
+    background-color: #213547;
+    transform: scale(1.1);
 }
 
 .MyButton:active {
-  background-color: #213547;
-  transform: scale(1);
-  outline: none;
-  box-shadow: none;
-  border: none;
+    background-color: #213547;
+    transform: scale(1);
+    outline: none;
+    box-shadow: none;
+    border: none;
 }
 
 .MyButton:focus {
-  outline: none;
-  box-shadow: none;
-  border: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
 }
