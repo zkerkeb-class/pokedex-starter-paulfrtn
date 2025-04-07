@@ -53,13 +53,21 @@ export const getNextPokemonId = async () => {
   }
 };
 
-export const getPokemonPage = async ({ pageNumber }) => {
+export const getPokemonPage = async (params) => {
   try {
-    const response = await api.get(`page/${pageNumber}`);
+    let response;
+    
+    if (params.searchTerm || params.types) {
+      response = await api.get('/search', { params });
+    } else {
+      response = await api.get(`page/${params.pageNumber}`);
+    }
+    
     return response.data;
-  } catch {
+  } catch (error) {
     console.error(
-      `Erreur lors de la récupération des pokemons de la page ${pageNumber}`,
+      `Erreur lors de la récupération des pokemons`,
+      error
     );
     throw error;
   }
