@@ -1,15 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./AllPokemons.module.css";
 import { useEffect, useState, useMemo } from "react";
-import { getAllPokemons } from "../../services/api.js";
+import { getPokemonPage } from "../../services/api.js";
 import SearchPokemon from "../../components/SearchPokemon/SearchPokemon.jsx";
 import MyButton from "../../components/UI-components/Button/MyButton.jsx";
 import FilterPokemon from "../../components/FilterPokemon/FilterPokemon.jsx";
 import PokemonGrid from "../../components/PokemonGrid/PokemonGrid.jsx";
 import AddEditModal from "../../components/AddEditModal/AddEditModal.jsx";
 import { Logout } from "@mui/icons-material";
+import Pagination from "../../components/Pagination/Pagination.jsx";
 
 const AllPokemons = () => {
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [allPokemons, setAllPokemons] = useState([]);
@@ -33,8 +36,11 @@ const AllPokemons = () => {
   const fetchPokemons = async () => {
     try {
       setLoading(true);
-      const data = await getAllPokemons();
-      setAllPokemons(data);
+      const { pokemons, totalPages } = await getPokemonPage({
+        pageNumber: page,
+      });
+      setAllPokemons(pokemons);
+      setPageCount(totalPages);
     } catch (err) {
       setError(`Échec du chargement des pokemons: ${err.message}`);
     } finally {
@@ -44,14 +50,13 @@ const AllPokemons = () => {
 
   useEffect(() => {
     void fetchPokemons();
-  }, []);
+    console.log(pageCount);
+  }, [page, pageCount]);
 
-  // Filtrer les Pokémon côté client au lieu de faire des appels API à chaque changement
   const displayedPokemons = useMemo(() => {
     if (!allPokemons) return [];
 
     return allPokemons.filter((pokemon) => {
-      // Filtre par nom (recherche)
       const nameMatches =
         searchTerm === "" ||
         (pokemon.name &&
@@ -62,7 +67,6 @@ const AllPokemons = () => {
               ?.toLowerCase()
               .includes(searchTerm.toLowerCase())));
 
-      // Filtre par types
       const typeMatches =
         selectedTypes.length === 0 ||
         selectedTypes.every((type) => pokemon.type.includes(type));
@@ -85,16 +89,19 @@ const AllPokemons = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <>
+    <div className={styles.appContainer}>
       <header className={styles.header}>
         <div className={styles.headerLeftSection}>
-          <SearchPokemon searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <SearchPokemon
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
         </div>
-        
+
         <div className={styles.headerCenterSection}>
           <h1 className={styles.headerTitle}>Pokémon</h1>
         </div>
-        
+
         <div className={styles.headerRightSection}>
           <MyButton
             placeholder={"Ajouter"}
@@ -154,7 +161,11 @@ const AllPokemons = () => {
             <p>Aucun Pokémon trouvé avec ces critères.</p>
           </div>
         )}
+        <div className={styles.pagination}>
+          <Pagination page={page} setPage={setPage} pageCount={pageCount} />
+        </div>
       </div>
+
       <AddEditModal
         pokemon={selectedPokemon}
         isEditing={isEditing}
@@ -162,7 +173,7 @@ const AllPokemons = () => {
         handleClose={handleClose}
         refreshPokemons={refreshPokemons}
       />
-    </>
+    </div>
   );
 };
 
