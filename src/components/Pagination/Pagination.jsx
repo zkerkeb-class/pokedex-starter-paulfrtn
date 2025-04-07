@@ -14,6 +14,7 @@ const Pagination = ({ page, setPage, pageCount }) => {
       key={i + 1}
       placeholder={i + 1}
       style={{
+        background: page === i + 1 ? "grey" : "undefined",
         width: "50px",
       }}
       onClick={() => handlePageChange(i + 1)}
