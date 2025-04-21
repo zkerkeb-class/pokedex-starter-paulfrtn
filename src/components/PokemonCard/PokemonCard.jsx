@@ -13,12 +13,46 @@ const PokemonInfo = ({ text, info }) => {
   );
 };
 
+const getRarityShorthand = (rarity) => {
+  switch (rarity) {
+    case "Common":
+      return "C";
+    case "Rare":
+      return "R";
+    case "Ultra Rare":
+      return "UR";
+    case "Legendary":
+      return "L";
+    case "Mythic":
+      return "M";
+    default:
+      return "C";
+  }
+};
+
+const getRarityColor = (rarity) => {
+  switch (rarity) {
+    case "Common":
+      return "#A8A8A8";
+    case "Rare":
+      return "#3498db";
+    case "Ultra Rare":
+      return "#9b59b6";
+    case "Legendary":
+      return "#f1c40f";
+    case "Mythic":
+      return "#e74c3c";
+    default:
+      return "#A8A8A8";
+  }
+};
+
 const PokemonCard = ({ pokemon, onClick }) => {
   if (!pokemon) {
     return <div>Loading...</div>;
   }
 
-  const { id, name, type, base, image, _id } = pokemon;
+  const { id, name, type, base, image, _id, rarity } = pokemon;
   const navigate = useNavigate();
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -48,6 +82,14 @@ const PokemonCard = ({ pokemon, onClick }) => {
       }}
       onClick={() => onClick(pokemon)}
     >
+      {rarity && (
+        <div 
+          className={styles.rarityBadge}
+          style={{ backgroundColor: getRarityColor(rarity) }}
+        >
+          {getRarityShorthand(rarity)}
+        </div>
+      )}
       <div className={styles.header}>
         <div className={styles.rightHeader}>
           <p>{name.french}</p>

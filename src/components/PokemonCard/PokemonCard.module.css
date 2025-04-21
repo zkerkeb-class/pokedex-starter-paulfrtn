@@ -24,6 +24,24 @@
     transform: scale(0.98);
 }
 
+.rarityBadge {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
 .header {
     flex: 1;
     display: flex;
@@ -109,7 +127,7 @@ p {
 
 .Info {
     display: flex;
+    justify-content: flex-end;
     width: 95%;
     padding-bottom: 5px;
-    justify-content: flex-end;
 }

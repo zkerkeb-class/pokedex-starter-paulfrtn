@@ -13,6 +13,7 @@ const initialFormState = {
   id: null,
   name: "",
   type: [],
+  rarity: "Common",
   base: {
     hp: 0,
     attack: 0,
@@ -35,6 +36,11 @@ const AddEditModal = ({
   const [formData, setFormData] = useState({ ...initialFormState });
   const [error, setError] = useState("");
   const [deleteError, setDeleteError] = useState(false);
+
+  useEffect(() => {
+    setError("");
+    setDeleteError(false);
+  }, [isOpen]);
 
   useEffect(() => {
     if (isEditing && pokemon && Object.keys(pokemon).length > 0) {
@@ -92,10 +98,11 @@ const AddEditModal = ({
   };
 
   const handleDelete = async () => {
-    if (!formData.id) return;
+    if (!formData._id && !formData.id) return;
 
     try {
-      await deletePokemon(formData.id);
+      const idToDelete = formData._id || formData.id;
+      await deletePokemon(idToDelete);
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       refreshPokemons();
@@ -107,11 +114,9 @@ const AddEditModal = ({
 
       if (error.response && error.response.status === 403) {
         setDeleteError(true);
-        setError(
-          "Vous n'avez pas les droits d'administrateur pour supprimer ce Pokémon.",
-        );
+        setError("Vous n'avez pas les droits administrateurs permettant d'effectuer cette action");
       } else {
-        setError("Erreur lors de la suppression du Pokémon.");
+        setError("Une erreur est survenue lors de la suppression du Pokémon");
       }
     }
   };
@@ -135,6 +140,7 @@ const AddEditModal = ({
       name: nameObj,
       type:
         formData.type && formData.type.length > 0 ? formData.type : ["normal"],
+      rarity: formData.rarity || "Common",
       base: {
         hp: parseInt(formData.base.hp) || 0,
         attack: parseInt(formData.base.attack) || 0,
@@ -159,7 +165,13 @@ const AddEditModal = ({
       handleCloseAndReset();
     } catch (error) {
       console.error("Erreur:", error);
-      setError("Une erreur est survenue lors de l'opération.");
+      
+      if (error.response && error.response.status === 403) {
+        setDeleteError(true);
+        setError("Vous n'avez pas les droits administrateurs permettant d'effectuer cette action");
+      } else {
+        setError("Une erreur est survenue lors de l'opération");
+      }
     }
   };
 
@@ -198,13 +210,37 @@ const AddEditModal = ({
                 value={formData.name}
                 onChange={handleChange}
               />
-              <div className={styles.filterContainer}>
-                <FilterPokemon
-                  selectedTypes={selectedTypes}
-                  setSelectedTypes={setSelectedTypes}
-                />
+              <div className={styles.rarityDropdown}>
+                <div className={styles.select} onClick={() => {}}>
+                  {formData.rarity === "Common" && "Commun"}
+                  {formData.rarity === "Rare" && "Rare"}
+                  {formData.rarity === "Ultra Rare" && "Ultra Rare"}
+                  {formData.rarity === "Legendary" && "Légendaire"}
+                  {formData.rarity === "Mythic" && "Mythique"}
+                  <span className={styles.arrow}>▼</span>
+                  <select
+                    name="rarity"
+                    value={formData.rarity || "Common"}
+                    onChange={handleChange}
+                    className={styles.hiddenSelect}
+                  >
+                    <option value="Common">Commun</option>
+                    <option value="Rare">Rare</option>
+                    <option value="Ultra Rare">Ultra Rare</option>
+                    <option value="Legendary">Légendaire</option>
+                    <option value="Mythic">Mythique</option>
+                  </select>
+                </div>
               </div>
             </div>
+            
+            <div className={styles.filterContainer}>
+              <FilterPokemon
+                selectedTypes={selectedTypes}
+                setSelectedTypes={setSelectedTypes}
+              />
+            </div>
+            
             <div className={styles.formMiddle}>
               <div>
                 <input

@@ -114,6 +114,25 @@
     color: transparent;
 }
 
+.rarityBadge {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: rgba(94, 65, 164, 0.3);
+    border: 1px solid rgba(94, 65, 164, 0.5);
+    color: #e2e2e2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.rarityBadge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(94, 65, 164, 0.3);
+}
+
 .types {
     display: flex;
     gap: 0.8rem;

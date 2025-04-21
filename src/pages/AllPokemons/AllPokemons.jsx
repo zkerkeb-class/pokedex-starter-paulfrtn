@@ -36,14 +36,14 @@ const AllPokemons = () => {
   const fetchPokemons = async () => {
     try {
       setLoading(true);
-      
+
       // Si on a une recherche ou des filtres, on utilise la route search
       if (searchTerm || selectedTypes.length > 0) {
         const params = {};
         if (searchTerm) params.searchTerm = searchTerm;
         if (selectedTypes.length > 0) params.types = selectedTypes.join(",");
         params.page = page;
-        
+
         const { pokemons, totalPages } = await getPokemonPage(params);
         setAllPokemons(pokemons);
         setPageCount(totalPages);
@@ -80,7 +80,6 @@ const AllPokemons = () => {
     setIsOpen(true);
   };
 
-  if (loading) return <p>Chargement...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -94,7 +93,7 @@ const AllPokemons = () => {
         </div>
 
         <div className={styles.headerCenterSection}>
-          <h1 className={styles.headerTitle}>Pokémon</h1>
+          <h1 className={styles.headerTitle}>Pokédex</h1>
         </div>
 
         <div className={styles.headerRightSection}>
@@ -125,6 +124,8 @@ const AllPokemons = () => {
         </div>
       </header>
       <div className={styles.content}>
+        {loading && <div className={styles.loadingIndicator}></div>}
+
         {searchTerm || selectedTypes.length > 0 ? (
           <div className={styles.searchInfo}>
             <p>

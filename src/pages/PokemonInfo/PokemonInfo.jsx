@@ -64,6 +64,13 @@ const PokemonInfo = () => {
             />
             <div className={styles.pokemonTitle}>
               <h1>{pokemon.name?.french}</h1>
+              <div className={styles.rarityBadge}>
+                {pokemon.rarity === "Common" && "Commun"}
+                {pokemon.rarity === "Rare" && "Rare"}
+                {pokemon.rarity === "Ultra Rare" && "Ultra Rare"}
+                {pokemon.rarity === "Legendary" && "Légendaire"}
+                {pokemon.rarity === "Mythic" && "Mythique"}
+              </div>
               <div className={styles.types}>
                 {pokemon.type?.map((type, index) => (
                   <img

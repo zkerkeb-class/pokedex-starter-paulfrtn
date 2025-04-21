@@ -54,6 +54,26 @@
   min-height: 0;
 }
 
+.loadingIndicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #9c6fff 0%, #e17aff 100%);
+  animation: loadingAnimation 1.5s infinite ease-in-out;
+  z-index: 1000;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .searchInfo {
   display: flex;
   justify-content: space-between;

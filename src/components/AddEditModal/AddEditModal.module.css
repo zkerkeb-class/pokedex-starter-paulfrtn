@@ -89,8 +89,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     position: relative;
+    margin-bottom: 5px;
 }
 
 .formTop input {
@@ -101,7 +102,7 @@
     background-color: rgba(25, 25, 35, 0.6);
     color: #e2e2e2;
     transition: all 0.2s ease;
-    flex: 1;
+    flex: 2;
     min-width: 200px;
 }
 
@@ -117,6 +118,63 @@
     position: relative;
     overflow: visible;
     z-index: 1500;
+    margin-bottom: 10px;
+}
+
+.rarityDropdown {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-width: 200px;
+    max-width: 100%;
+}
+
+.select {
+    background-color: #213547;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    padding: 0 15px;
+    height: 35px;
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(94, 65, 164, 0.3);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.select:focus, .select:hover {
+    outline: none;
+    border-color: #9c6fff;
+    box-shadow: 0 0 0 2px rgba(156, 111, 255, 0.2);
+}
+
+.hiddenSelect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.hiddenSelect option {
+    background-color: #213547;
+    color: white;
+    font-size: 1rem;
+    padding: 8px;
+}
+
+.arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
 }
 
 .types {

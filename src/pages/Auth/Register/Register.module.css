@@ -2,8 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
+  min-height: 100vh;
   padding: 20px;
+  background: linear-gradient(135deg, #252537 0%, #1e1e2d 100%);
+  width: 100%;
 }
 
 .formCard {
