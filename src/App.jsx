@@ -5,6 +5,7 @@ import AllPokemons from "./pages/AllPokemons/AllPokemons.jsx";
 import PokemonInfo from "./pages/PokemonInfo/PokemonInfo.jsx";
 import Login from "./pages/Auth/Login/Login.jsx";
 import Register from "./pages/Auth/Register/Register.jsx";
+import BoosterOpening from "./pages/BoosterOpening/BoosterOpening.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/booster" element={<BoosterOpening />} />
       </Routes>
     </Router>
   );
