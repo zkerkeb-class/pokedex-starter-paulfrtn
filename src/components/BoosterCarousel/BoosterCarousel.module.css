@@ -1,0 +1,52 @@
+.scene {
+    width: 100%;
+    height: 500px;
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.carousel {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s ease;
+}
+
+.boosterSlot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    margin-left: -100px;
+}
+
+.controls {
+    margin-top: 30px;
+    display: flex;
+    gap: 40px;
+    z-index: 100;
+    position: relative;
+}
+
+.controls button {
+    padding: 15px 25px;
+    font-size: 1.5rem;
+    background: linear-gradient(90deg, #9c6fff, #e17aff);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}

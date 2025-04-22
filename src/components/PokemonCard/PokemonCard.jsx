@@ -48,12 +48,13 @@ const getRarityColor = (rarity) => {
 };
 
 const PokemonCard = ({ pokemon, onClick }) => {
+  const navigate = useNavigate();
+
   if (!pokemon) {
     return <div>Loading...</div>;
   }
 
-  const { id, name, type, base, image, _id, rarity } = pokemon;
-  const navigate = useNavigate();
+  const { name, type, base, image, _id, rarity } = pokemon;
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   const getBackground = () => {
@@ -83,7 +84,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
       onClick={() => onClick(pokemon)}
     >
       {rarity && (
-        <div 
+        <div
           className={styles.rarityBadge}
           style={{ backgroundColor: getRarityColor(rarity) }}
         >

@@ -102,3 +102,12 @@
 .boosterCard button {
   background: linear-gradient(90deg, #9c6fff 0%, #e17aff 100%);
 }
+
+.boosterWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  height: 600px;
+}
