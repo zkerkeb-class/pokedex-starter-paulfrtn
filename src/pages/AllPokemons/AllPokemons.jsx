@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./AllPokemons.module.css";
 import { useEffect, useState, useMemo } from "react";
-import { getPokemonPage } from "../../services/api.js";
+import {
+  getPokemonPage,
+  getUnlockedPokemons,
+  getAllPokemons,
+} from "../../services/api.js";
 import SearchPokemon from "../../components/SearchPokemon/SearchPokemon.jsx";
 import MyButton from "../../components/UI-components/Button/MyButton.jsx";
 import FilterPokemon from "../../components/FilterPokemon/FilterPokemon.jsx";
@@ -9,6 +13,7 @@ import PokemonGrid from "../../components/PokemonGrid/PokemonGrid.jsx";
 import AddEditModal from "../../components/AddEditModal/AddEditModal.jsx";
 import { Logout } from "@mui/icons-material";
 import Pagination from "../../components/Pagination/Pagination.jsx";
+import { jwtDecode } from "jwt-decode";
 
 const AllPokemons = () => {
   const [page, setPage] = useState(1);
@@ -22,6 +27,8 @@ const AllPokemons = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const navigate = useNavigate();
+  const [unlocked, setUnlocked] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -37,23 +44,31 @@ const AllPokemons = () => {
     try {
       setLoading(true);
 
-      // Si on a une recherche ou des filtres, on utilise la route search
-      if (searchTerm || selectedTypes.length > 0) {
-        const params = {};
-        if (searchTerm) params.searchTerm = searchTerm;
-        if (selectedTypes.length > 0) params.types = selectedTypes.join(",");
-        params.page = page;
+      const token = localStorage.getItem("token");
+      let role = null;
+      if (token) {
+        const decoded = jwtDecode(token);
+        role = decoded.role;
+        setIsAdmin(role === "admin");
+      }
 
-        const { pokemons, totalPages } = await getPokemonPage(params);
+      if (role === "admin") {
+        const { pokemons, totalPages } = await getPokemonPage({
+          pageNumber: page,
+          ...(searchTerm && { searchTerm }),
+          ...(selectedTypes.length > 0 && { types: selectedTypes.join(",") }),
+        });
+
         setAllPokemons(pokemons);
         setPageCount(totalPages);
       } else {
-        // Sinon on utilise la pagination simple
-        const { pokemons, totalPages } = await getPokemonPage({
-          pageNumber: page,
-        });
+        const pokemons = await getAllPokemons(); // ⬅️ ici tous les pokemons
         setAllPokemons(pokemons);
-        setPageCount(totalPages);
+        setPageCount(1); // pas de pagination nécessaire
+
+        const unlocked = await getUnlockedPokemons();
+        const unlockedIds = unlocked.map((p) => p._id);
+        setUnlocked(unlockedIds);
       }
     } catch (err) {
       setError(`Échec du chargement des pokemons: ${err.message}`);
@@ -63,7 +78,7 @@ const AllPokemons = () => {
   };
 
   useEffect(() => {
-    void fetchPokemons();
+    fetchPokemons();
   }, [page, searchTerm, selectedTypes]);
 
   const displayedPokemons = useMemo(() => {
@@ -98,11 +113,15 @@ const AllPokemons = () => {
 
         <div className={styles.headerRightSection}>
           <MyButton
-            placeholder={"Ajouter"}
+            placeholder={isAdmin ? "Ajouter" : "Booster"}
             onClick={() => {
-              setIsOpen(true);
-              setIsEditing(false);
-              setSelectedPokemon(null);
+              if (isAdmin) {
+                setIsOpen(true);
+                setIsEditing(false);
+                setSelectedPokemon(null);
+              } else {
+                navigate("/booster");
+              }
             }}
           />
           <FilterPokemon
@@ -151,6 +170,8 @@ const AllPokemons = () => {
         {displayedPokemons.length > 0 ? (
           <PokemonGrid
             pokemons={displayedPokemons}
+            unlocked={unlocked}
+            isAdmin={isAdmin}
             onPokemonSelect={onPokemonSelect}
           />
         ) : (
@@ -158,9 +179,11 @@ const AllPokemons = () => {
             <p>Aucun Pokémon trouvé avec ces critères.</p>
           </div>
         )}
-        <div className={styles.pagination}>
-          <Pagination page={page} setPage={setPage} pageCount={pageCount} />
-        </div>
+        {isAdmin && (
+          <div className={styles.pagination}>
+            <Pagination page={page} setPage={setPage} pageCount={pageCount} />
+          </div>
+        )}
       </div>
 
       <AddEditModal

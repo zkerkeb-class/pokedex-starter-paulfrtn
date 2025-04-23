@@ -47,14 +47,14 @@ const getRarityColor = (rarity) => {
   }
 };
 
-const PokemonCard = ({ pokemon, onClick }) => {
+const PokemonCard = ({ pokemon, onClick, unlocked = true }) => {
   const navigate = useNavigate();
 
   if (!pokemon) {
     return <div>Loading...</div>;
   }
 
-  const { name, type, base, image, _id, rarity } = pokemon;
+  const { name, type, base, image, _id, rarity, new: isNew = false } = pokemon;
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   const getBackground = () => {
@@ -74,14 +74,24 @@ const PokemonCard = ({ pokemon, onClick }) => {
     }
   };
 
+  if (!unlocked) {
+    return (
+      <div className={styles.lockedCard}>
+        <div className={styles.lockedOverlay}>
+          <p>Non débloqué</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className={styles.card}
       style={{
         background: getBackground(),
         backgroundSize: "100% 100%",
+        cursor: onClick ? "pointer" : "default"
       }}
-      onClick={() => onClick(pokemon)}
+      onClick={onClick ? () => onClick(pokemon) : undefined}
     >
       {rarity && (
         <div
@@ -94,6 +104,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
       <div className={styles.header}>
         <div className={styles.rightHeader}>
           <p>{name.french}</p>
+          {isNew && <div className={styles.newBadge}>Nouveau !</div>}
         </div>
         <div className={styles.leftHeader}>
           <p className={styles.PV}>PV</p>

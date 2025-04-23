@@ -52,6 +52,8 @@
 }
 
 .rightHeader {
+    display: flex;
+    gap: 10px;
     color: #242424;
     font-weight: bold;
 }
@@ -130,4 +132,31 @@ p {
     justify-content: flex-end;
     width: 95%;
     padding-bottom: 5px;
+}
+
+.newBadge {
+    background-color: #ff6f61;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+
+.lockedCard {
+    width: 300px;
+    height: calc(300px * (440 / 315));
+    border-radius: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #bbb;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
 }

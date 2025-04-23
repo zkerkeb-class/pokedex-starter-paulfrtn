@@ -1,47 +1,34 @@
 .boosterContainer {
-    perspective: 1000px;
-    width: 200px;
-    height: 300px;
+    width: 250px;
     cursor: pointer;
-    transition: transform 0.5s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.selected {
-    transform: scale(1.1);
-    z-index: 100;
 }
 
 .booster {
     width: 100%;
     height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s ease;
+}
+
+.selected {
+    transform: scale(1.2);
+    z-index: 10;
 }
 
 .flipped .booster {
     transform: rotateY(180deg);
 }
 
-.front,
-.back {
-    position: absolute;
+.front img {
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
+    object-fit: contain;
     border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
 }
 
-.back {
-    transform: rotateY(180deg);
+.booster {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
-.back img {
-    filter: brightness(0.6) blur(1px);
+.selected .booster {
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.5);
 }

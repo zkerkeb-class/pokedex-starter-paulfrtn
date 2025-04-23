@@ -1,5 +1,4 @@
 import axios from "axios";
-import error from "eslint-plugin-react/lib/util/error.js";
 
 const api = axios.create({
   baseURL: "http://localhost:3000/api/pokemons",
@@ -142,6 +141,26 @@ export const register = async ({ firstname, lastname, mail, password }) => {
     return res.data;
   } catch (e) {
     console.error("Erreurr d'inscription", e);
+    throw e;
+  }
+};
+
+export const openBooster = async () => {
+  try {
+    const res = await api.get("/booster");
+    return res.data.booster;
+  } catch (e) {
+    console.error("Erreur lors de l'ouverture du booster", e);
+    throw e;
+  }
+};
+
+export const getUnlockedPokemons = async () => {
+  try {
+    const { data } = await api.get("/unlocked");
+    return data.pokemons;
+  } catch (e) {
+    console.error("Erreur lors de la récupération des Pokémon débloqués", e);
     throw e;
   }
 };

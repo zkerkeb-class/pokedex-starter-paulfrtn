@@ -15,9 +15,6 @@ const Booster = ({ onClick, flipped = false, selected = false }) => {
         <div className={styles.front}>
           <img src={boosterImage} alt="Booster" />
         </div>
-        <div className={styles.back}>
-          <img src={boosterImage} alt="Booster backside" />
-        </div>
       </div>
     </div>
   );
