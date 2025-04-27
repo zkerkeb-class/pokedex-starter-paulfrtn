@@ -5,11 +5,46 @@ Authentification JWT, boosters, animations GSAP, différenciation admin/user, et
 
 ---
 
+# 🌐 Pokédex Frontend – Projet React + Vite
+
+Déployé sur AWS 🚀
+
+- 🌍 **Frontend (React + Vite)** : via **AWS S3** + **CloudFront**
+- ⚙️ **Backend (Node.js + MongoDB)** : hébergé sur une instance **EC2**
+- 📁 **URL de production** : [
+  `http://pokedex-starter-paulfrtn.s3-website-us-east-1.amazonaws.com/`](http://pokedex-starter-paulfrtn.s3-website-us-east-1.amazonaws.com/)
+
+### 👥 Utilisateurs par défaut
+
+| Rôle  | Email             | Mot de passe |
+|-------|-------------------|--------------|
+| admin | admin@poke.com    | admin123     |
+| user  | aldous@huxley.com | password     |
+
+---
+
 ## 🚀 Cloner le projet
 
 ```bash
 git clone git@github.com:zkerkeb-class/pokedex-starter-paulfrtn.git
 cd pokedex-front-paulfrtn
+```
+
+---
+
+## ⚙️ Configuration de l'environnement
+
+Clonez le fichier `.env.example` pour créer votre fichier `.env` :
+
+```bash
+cp .env.example .env
+```
+
+Ensuite, modifiez la variable VITE_API_URL dans .env pour qu’elle pointe vers l’URL de votre backend (par exemple l’IP
+publique de votre EC2) :
+
+```
+VITE_API_URL=http://<votre-ip>:3000
 ```
 
 ---

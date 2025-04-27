@@ -2,11 +2,11 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api/pokemons",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/pokemons`,
 });
 
 const authApi = axios.create({
-  baseURL: "http://localhost:3000/api/auth",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/auth`,
 });
 
 const refreshTokenIfNeeded = async () => {
