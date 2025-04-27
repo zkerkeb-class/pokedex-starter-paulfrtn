@@ -5,9 +5,7 @@ Authentification JWT, boosters, animations GSAP, différenciation admin/user, et
 
 ---
 
-# 🌐 Pokédex Frontend – Projet React + Vite
-
-Déployé sur AWS 🚀
+## Déployé sur AWS 🚀
 
 - 🌍 **Frontend (React + Vite)** : via **AWS S3** + **CloudFront**
 - ⚙️ **Backend (Node.js + MongoDB)** : hébergé sur une instance **EC2**
