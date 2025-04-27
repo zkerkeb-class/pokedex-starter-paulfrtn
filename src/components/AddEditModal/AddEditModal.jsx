@@ -13,7 +13,6 @@ const initialFormState = {
   id: null,
   name: "",
   type: [],
-  rarity: "Common",
   base: {
     hp: 0,
     attack: 0,
@@ -142,7 +141,6 @@ const AddEditModal = ({
       name: nameObj,
       type:
         formData.type && formData.type.length > 0 ? formData.type : ["normal"],
-      rarity: formData.rarity || "Common",
       base: {
         hp: parseInt(formData.base.hp) || 0,
         attack: parseInt(formData.base.attack) || 0,
@@ -214,28 +212,6 @@ const AddEditModal = ({
                 value={formData.name}
                 onChange={handleChange}
               />
-              <div className={styles.rarityDropdown}>
-                <div className={styles.select} onClick={() => {}}>
-                  {formData.rarity === "Common" && "Commun"}
-                  {formData.rarity === "Rare" && "Rare"}
-                  {formData.rarity === "Ultra Rare" && "Ultra Rare"}
-                  {formData.rarity === "Legendary" && "Légendaire"}
-                  {formData.rarity === "Mythic" && "Mythique"}
-                  <span className={styles.arrow}>▼</span>
-                  <select
-                    name="rarity"
-                    value={formData.rarity || "Common"}
-                    onChange={handleChange}
-                    className={styles.hiddenSelect}
-                  >
-                    <option value="Common">Commun</option>
-                    <option value="Rare">Rare</option>
-                    <option value="Ultra Rare">Ultra Rare</option>
-                    <option value="Legendary">Légendaire</option>
-                    <option value="Mythic">Mythique</option>
-                  </select>
-                </div>
-              </div>
             </div>
 
             <div className={styles.filterContainer}>
