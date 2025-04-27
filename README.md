@@ -6,6 +6,7 @@ Authentification JWT, boosters, animations GSAP, différenciation admin/user, et
 ---
 ## 🎥 Lien vidéo du projet
 
+
 🔗 [https://youtu.be/7ru3Vv81bZU](https://youtu.be/7ru3Vv81bZU)
 ---
 ## Déployé sur AWS 🚀
