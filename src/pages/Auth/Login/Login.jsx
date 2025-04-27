@@ -19,7 +19,9 @@ const Login = () => {
       navigate("/");
     } catch (e) {
       console.error(e);
-      setError(e.response?.data?.message || "Erreur de connexion. Veuillez réessayer.");
+      setError(
+        e.response?.data?.message || "Erreur de connexion. Veuillez réessayer.",
+      );
     }
   };
 
@@ -66,9 +68,9 @@ const Login = () => {
           </div>
           <div className={styles.alternateAction}>
             <p>Pas encore de compte ?</p>
-            <MyButton 
-              placeholder={"Créer un compte"} 
-              onClick={handleRegisterClick} 
+            <MyButton
+              placeholder={"Créer un compte"}
+              onClick={handleRegisterClick}
               type="button"
               style={{ width: "auto", padding: "0 15px" }}
             />

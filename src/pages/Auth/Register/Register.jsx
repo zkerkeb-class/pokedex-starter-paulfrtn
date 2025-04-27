@@ -26,7 +26,10 @@ const Register = () => {
       navigate("/auth/login");
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Erreur d'inscription. Veuillez réessayer.");
+      setError(
+        err.response?.data?.message ||
+          "Erreur d'inscription. Veuillez réessayer.",
+      );
     }
   };
 
@@ -95,9 +98,9 @@ const Register = () => {
           </div>
           <div className={styles.alternateAction}>
             <p>Déjà inscrit ?</p>
-            <MyButton 
-              placeholder={"Déjà un compte"} 
-              onClick={handleLoginClick} 
+            <MyButton
+              placeholder={"Déjà un compte"}
+              onClick={handleLoginClick}
               type="button"
               style={{ width: "auto", padding: "0 15px" }}
             />

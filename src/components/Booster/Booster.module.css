@@ -1,0 +1,34 @@
+.boosterContainer {
+    width: 250px;
+    cursor: pointer;
+}
+
+.booster {
+    width: 100%;
+    height: 100%;
+}
+
+.selected {
+    transform: scale(1.2);
+    z-index: 10;
+}
+
+.flipped .booster {
+    transform: rotateY(180deg);
+}
+
+.front img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+.booster {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.selected .booster {
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.5);
+}

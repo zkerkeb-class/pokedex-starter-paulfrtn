@@ -114,7 +114,9 @@ const AddEditModal = ({
 
       if (error.response && error.response.status === 403) {
         setDeleteError(true);
-        setError("Vous n'avez pas les droits administrateurs permettant d'effectuer cette action");
+        setError(
+          "Vous n'avez pas les droits administrateurs permettant d'effectuer cette action",
+        );
       } else {
         setError("Une erreur est survenue lors de la suppression du Pokémon");
       }
@@ -165,10 +167,12 @@ const AddEditModal = ({
       handleCloseAndReset();
     } catch (error) {
       console.error("Erreur:", error);
-      
+
       if (error.response && error.response.status === 403) {
         setDeleteError(true);
-        setError("Vous n'avez pas les droits administrateurs permettant d'effectuer cette action");
+        setError(
+          "Vous n'avez pas les droits administrateurs permettant d'effectuer cette action",
+        );
       } else {
         setError("Une erreur est survenue lors de l'opération");
       }
@@ -233,14 +237,14 @@ const AddEditModal = ({
                 </div>
               </div>
             </div>
-            
+
             <div className={styles.filterContainer}>
               <FilterPokemon
                 selectedTypes={selectedTypes}
                 setSelectedTypes={setSelectedTypes}
               />
             </div>
-            
+
             <div className={styles.formMiddle}>
               <div>
                 <input

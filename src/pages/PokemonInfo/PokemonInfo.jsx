@@ -76,9 +76,7 @@ const PokemonInfo = () => {
                   <img
                     key={index}
                     alt={type}
-                    src={
-                      `../src/assets/types/${capitalize(type)}.png`
-                    }
+                    src={`../src/assets/types/${capitalize(type)}.png`}
                     className={styles.typeImage}
                   />
                 ))}
@@ -107,9 +105,13 @@ const PokemonInfo = () => {
                   .map(([lang, name]) => (
                     <div key={lang} className={styles.nameItem}>
                       <span className={styles.language}>
-                        {lang === "english" ? "Anglais" : 
-                         lang === "japanese" ? "Japonais" : 
-                         lang === "chinese" ? "Chinois" : capitalize(lang)}
+                        {lang === "english"
+                          ? "Anglais"
+                          : lang === "japanese"
+                            ? "Japonais"
+                            : lang === "chinese"
+                              ? "Chinois"
+                              : capitalize(lang)}
                       </span>
                       <span className={styles.name}>{name}</span>
                     </div>

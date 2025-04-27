@@ -1,7 +1,7 @@
 import PokemonCard from "../PokemonCard/PokemonCard.jsx";
 import styles from "./PokemonGrid.module.css";
 
-const PokemonGrid = ({ pokemons, onPokemonSelect }) => {
+const PokemonGrid = ({ pokemons, unlocked, isAdmin, onPokemonSelect }) => {
   return (
     <div className={styles.cardContainer}>
       {pokemons &&
@@ -9,7 +9,8 @@ const PokemonGrid = ({ pokemons, onPokemonSelect }) => {
           <PokemonCard
             key={pokemon._id}
             pokemon={pokemon}
-            onClick={() => onPokemonSelect(pokemon)}
+            unlocked={isAdmin || unlocked.includes(pokemon._id)}
+            onClick={isAdmin ? () => onPokemonSelect(pokemon) : undefined}
           />
         ))}
     </div>

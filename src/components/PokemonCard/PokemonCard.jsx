@@ -4,6 +4,48 @@ import MyButton from "../UI-components/Button/MyButton.jsx";
 import { Info } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
+// Importation des images des types
+import bugImg from "../../assets/types/Bug.png";
+import darkImg from "../../assets/types/Dark.png";
+import dragonImg from "../../assets/types/Dragon.png";
+import electricImg from "../../assets/types/Electric.png";
+import fairyImg from "../../assets/types/Fairy.png";
+import fightingImg from "../../assets/types/Fighting.png";
+import fireImg from "../../assets/types/Fire.png";
+import flyingImg from "../../assets/types/Flying.png";
+import ghostImg from "../../assets/types/Ghost.png";
+import grassImg from "../../assets/types/Grass.png";
+import groundImg from "../../assets/types/Ground.png";
+import iceImg from "../../assets/types/Ice.png";
+import normalImg from "../../assets/types/Normal.png";
+import poisonImg from "../../assets/types/Poison.png";
+import psychicImg from "../../assets/types/Psychic.png";
+import rockImg from "../../assets/types/Rock.png";
+import steelImg from "../../assets/types/Steel.png";
+import waterImg from "../../assets/types/Water.png";
+
+// Dictionnaire des images des types
+const typeImages = {
+  bug: bugImg,
+  dark: darkImg,
+  dragon: dragonImg,
+  electric: electricImg,
+  fairy: fairyImg,
+  fighting: fightingImg,
+  fire: fireImg,
+  flying: flyingImg,
+  ghost: ghostImg,
+  grass: grassImg,
+  ground: groundImg,
+  ice: iceImg,
+  normal: normalImg,
+  poison: poisonImg,
+  psychic: psychicImg,
+  rock: rockImg,
+  steel: steelImg,
+  water: waterImg,
+};
+
 const PokemonInfo = ({ text, info }) => {
   return (
     <div className={styles.pokemonInfo}>
@@ -47,13 +89,14 @@ const getRarityColor = (rarity) => {
   }
 };
 
-const PokemonCard = ({ pokemon, onClick }) => {
+const PokemonCard = ({ pokemon, onClick, unlocked = true }) => {
+  const navigate = useNavigate();
+
   if (!pokemon) {
     return <div>Loading...</div>;
   }
 
-  const { id, name, type, base, image, _id, rarity } = pokemon;
-  const navigate = useNavigate();
+  const { name, type, base, image, _id, rarity, new: isNew = false } = pokemon;
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   const getBackground = () => {
@@ -73,17 +116,27 @@ const PokemonCard = ({ pokemon, onClick }) => {
     }
   };
 
+  if (!unlocked) {
+    return (
+      <div className={styles.lockedCard}>
+        <div className={styles.lockedOverlay}>
+          <p>Non débloqué</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className={styles.card}
       style={{
         background: getBackground(),
         backgroundSize: "100% 100%",
+        cursor: onClick ? "pointer" : "default",
       }}
-      onClick={() => onClick(pokemon)}
+      onClick={onClick ? () => onClick(pokemon) : undefined}
     >
       {rarity && (
-        <div 
+        <div
           className={styles.rarityBadge}
           style={{ backgroundColor: getRarityColor(rarity) }}
         >
@@ -93,6 +146,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
       <div className={styles.header}>
         <div className={styles.rightHeader}>
           <p>{name.french}</p>
+          {isNew && <div className={styles.newBadge}>Nouveau !</div>}
         </div>
         <div className={styles.leftHeader}>
           <p className={styles.PV}>PV</p>
@@ -102,11 +156,7 @@ const PokemonCard = ({ pokemon, onClick }) => {
       <div className={styles.content}>
         <div className={styles.types}>
           {type.map((t, index) => (
-            <img
-              key={index}
-              alt={t}
-              src={`src/assets/types/${capitalize(t)}.png`}
-            />
+            <img key={index} alt={t} src={typeImages[t.toLowerCase()]} />
           ))}
         </div>
         <div className={styles.pokemonImg}>
