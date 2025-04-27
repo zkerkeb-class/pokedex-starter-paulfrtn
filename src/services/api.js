@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const api = axios.create({
   baseURL: "http://localhost:3000/api/pokemons",
@@ -8,7 +9,40 @@ const authApi = axios.create({
   baseURL: "http://localhost:3000/api/auth",
 });
 
-api.interceptors.request.use((config) => {
+const refreshTokenIfNeeded = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+
+  try {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+
+    if (decoded.exp - currentTime < 600) {
+      const newToken = await refreshToken();
+      return newToken;
+    }
+    return token;
+  } catch (error) {
+    console.error("Erreur lors de la vérification du token:", error);
+    return null;
+  }
+};
+
+api.interceptors.request.use(async (config) => {
+  await refreshTokenIfNeeded();
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+authApi.interceptors.request.use(async (config) => {
+  if (!config.url.includes("/refresh")) {
+    await refreshTokenIfNeeded();
+  }
+
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -71,7 +105,6 @@ export const getPokemonPage = async (params) => {
 
 export const createPokemon = async (pokemon) => {
   try {
-    // Si aucun ID n'est fourni, en générer un automatiquement
     if (!pokemon.id) {
       const nextId = await getNextPokemonId();
       pokemon = { ...pokemon, id: nextId };
@@ -115,6 +148,19 @@ export const searchPokemons = async (searchTerm, types) => {
     return response.data;
   } catch (error) {
     console.error("Error while searching pokemons", error);
+    throw error;
+  }
+};
+
+export const refreshToken = async () => {
+  try {
+    const response = await authApi.post("/refresh");
+    localStorage.setItem("token", response.data.token);
+    return response.data.token;
+  } catch (error) {
+    console.error("Erreur lors du rafraîchissement du token", error);
+    localStorage.removeItem("token");
+    window.location.href = "/auth/login";
     throw error;
   }
 };
