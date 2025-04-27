@@ -7,7 +7,7 @@ Authentification JWT, boosters, animations GSAP, différenciation admin/user, et
 
 ## Déployé sur AWS 🚀
 
-- 🌍 **Frontend (React + Vite)** : via **AWS S3** + **CloudFront**
+- 🌍 **Frontend (React + Vite)** : via **AWS S3**
 - ⚙️ **Backend (Node.js + MongoDB)** : hébergé sur une instance **EC2**
 - 📁 **URL de production** : [
   `http://pokedex-starter-paulfrtn.s3-website-us-east-1.amazonaws.com/`](http://pokedex-starter-paulfrtn.s3-website-us-east-1.amazonaws.com/)
