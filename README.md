@@ -40,7 +40,7 @@ Clonez le fichier `.env.example` pour créer votre fichier `.env` :
 cp .env.example .env
 ```
 
-Ensuite, modifiez la variable VITE_API_URL dans .env pour qu’elle pointe vers l’URL de votre backend (par exemple l’IP
+Ensuite, modifiez la variable VITE_API_URL dans .env pour qu'elle pointe vers l'URL de votre backend (par exemple l'IP
 publique de votre EC2) :
 
 ```
@@ -124,7 +124,6 @@ npm install
 ## 🧪 À améliorer
 
 - [ ] 🌐 **Responsive design** (tablettes / mobiles)
-- [ ] ☁️ **Déploiement** (Vercel / Netlify + backend sur Render)
 
 ---
 
@@ -146,6 +145,7 @@ npm install
 - 🧼 CSS modules
 - 🔐 Auth + Role-based rendering
 - 📱 PWA Ready
+- ☁️ AWS (S3, EC2)
 
 ---
 
