@@ -4,7 +4,10 @@ Une interface web complète et dynamique en React pour interagir avec l'API Pok�
 Authentification JWT, boosters, animations GSAP, différenciation admin/user, et rendu PWA 💥
 
 ---
+## 🎥 Lien vidéo du projet
 
+🔗 [https://youtu.be/7ru3Vv81bZU](https://youtu.be/7ru3Vv81bZU)
+---
 ## Déployé sur AWS 🚀
 
 - 🌍 **Frontend (React + Vite)** : via **AWS S3**
